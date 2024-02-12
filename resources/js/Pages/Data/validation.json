@@ -1,0 +1,321 @@
+{
+    "description":"validation",
+    "dataKey":"meta-val",
+    "version":"0.0.1",
+    "testFunctions":[
+        {
+            "dataKey":"jml_art",
+            "componentValidation":["jml_ar"],
+            "validations": [
+                {
+                    "test":"getValue('jml_art') < 1",
+                    "message":"Jumlah Anggota Rumah Tangga minimal 1",
+                    "type":2
+                }
+            ]
+        },
+        {
+            "dataKey":"umur",
+            "componentValidation":["umur@$ROW$"],
+            "validations": [
+                {
+                    "test":"getValue('umur#'+getRowIndex(0)) < 15",
+                    "message":"Umur tidak boleh di bawah 15 Tahun",
+                    "type":2
+                }
+            ]
+        },
+        {
+            "dataKey":"r6a",
+            "componentValidation":["r6a@$ROW$"],
+            "validations": [
+                {
+                    "test":"let a = getValue('r6a#'+getRowIndex(0))\n a < 1 || a > 12",
+                    "message":"Isian hanya boleh 1 s.d 12",
+                    "type":2
+                }
+            ]
+        },
+        {
+            "dataKey":"r8a",
+            "componentValidation":["r8a@$ROW$"],
+            "validations": [
+                {
+                    "test":"let a = getValue('r8a#'+getRowIndex(0))\n a < 1 || a > 4",
+                    "message":"Isian hanya boleh 1 s.d 4",
+                    "type":2
+                }
+            ]
+        },
+        {
+            "dataKey":"r8b",
+            "componentValidation":["r8b@$ROW$"],
+            "validations": [
+                {
+                    "test":"let a = getValue('r8b#'+getRowIndex(0))\n a < 5 || a > 8",
+                    "message":"Isian hanya boleh 5 s.d 8",
+                    "type":2
+                }
+            ]
+        },
+        {
+            "dataKey":"r8c",
+            "componentValidation":["r8c@$ROW$"],
+            "validations": [
+                {
+                    "test":"let a = getValue('r8c#'+getRowIndex(0))\n a < 1 || a > 4",
+                    "message":"Isian hanya boleh 1 s.d 4",
+                    "type":2
+                }
+            ]
+        },
+        {
+            "dataKey":"r8d",
+            "componentValidation":["r8d@$ROW$"],
+            "validations": [
+                {
+                    "test":"let a = getValue('r8d#'+getRowIndex(0))\n a < 5 || a > 8",
+                    "message":"Isian hanya boleh 5 s.d 8",
+                    "type":2
+                }
+            ]
+        },
+        {
+            "dataKey":"r8e",
+            "componentValidation":["r8e@$ROW$"],
+            "validations": [
+                {
+                    "test":"let a = getValue('r8e#'+getRowIndex(0))\n a < 1 || a > 4",
+                    "message":"Isian hanya boleh 1 s.d 4",
+                    "type":2
+                }
+            ]
+        },
+        {
+            "dataKey":"r8f",
+            "componentValidation":["r8f@$ROW$"],
+            "validations": [
+                {
+                    "test":"let a = getValue('r8f#'+getRowIndex(0))\n a < 5 || a > 8",
+                    "message":"Isian hanya boleh 5 s.d 8",
+                    "type":2
+                }
+            ]
+        },
+        {
+            "dataKey":"r9a",
+            "componentValidation":["r9a@$ROW$"],
+            "validations": [
+                {
+                    "test":"let a = getValue('r9a#'+getRowIndex(0))\n a < 1 || a > 2",
+                    "message":"Isian hanya boleh 1 atau 2",
+                    "type":2
+                }
+            ]
+        },
+        {
+            "dataKey":"r9b",
+            "componentValidation":["r9b@$ROW$"],
+            "validations": [
+                {
+                    "test":"let a = getValue('r9b#'+getRowIndex(0))\n a < 1 || a > 2",
+                    "message":"Isian hanya boleh 1 atau 2",
+                    "type":2
+                }
+            ]
+        },
+        {
+            "dataKey":"r9c",
+            "componentValidation":["r9c@$ROW$"],
+            "validations": [
+                {
+                    "test":"let a = getValue('r9c#'+getRowIndex(0))\n a < 1 || a > 2",
+                    "message":"Isian hanya boleh 1 atau 2",
+                    "type":2
+                }
+            ]
+        },
+        {
+            "dataKey":"r10",
+            "componentValidation":["r10@$ROW$"],
+            "validations": [
+                {
+                    "test":"let a = getValue('r10#'+getRowIndex(0))\n a < 1 || a > 2",
+                    "message":"Isian hanya boleh 1 atau 2",
+                    "type":2
+                }
+            ]
+        },
+        {
+            "dataKey":"r13a",
+            "componentValidation":["r13a", "kbji"],
+            "validations": [
+                {
+                    "test":"let a = getValue('r13a#'+getRowIndex(0))\n a < 1 || a > 7",
+                    "message":"Isian hanya boleh 1 s.d. 7",
+                    "type":2
+                },
+                {
+                    "test":"let a = getValue('kbji#'+getRowIndex(0))\n let b = getValue('r13a#'+getRowIndex(0)) \n  a > 9210 && a < 9217 && b < 4; ",
+                    "message":"KBJI Buruh Pertanian tapi Status Berusaha",
+                    "type":2
+                },
+                {
+                    "test":"let a = getValue('kbji#'+getRowIndex(0))\n let b = getValue('r13a#'+getRowIndex(0)) \n  a == 8111 && b < 4 || a == 9311 && b < 4; ",
+                    "message":"KBJI Pekerja/Buruh Tambang tapi Status Berusaha",
+                    "type":2
+                }
+            ]
+        },
+        {
+            "dataKey":"kbli",
+            "componentValidation":["kbli", "kbji"],
+            "validations": [
+                {
+                    "test":"let a = getValue('kbli#'+getRowIndex(0)).length\n a < 5",
+                    "message":"KBLI harus 5 digit",
+                    "type":2
+                },
+                {
+                    "test":"let a = getValue('kbji#'+getRowIndex(0))\n let b = Number(getValue('kbli#'+getRowIndex(0))) \n  a > 9210 && a < 9217 && b > 3279;",
+                    "message":"KBJI Buruh Pertanian tapi Lapus Non Pertanian",
+                    "type":2
+                },
+                {
+                    "test":"let a = getValue('kbji#'+getRowIndex(0))\n let b = Number(getValue('kbli#'+getRowIndex(0))) \n a == 8111 && b < 5100 || b > 9900 || a == 9311 && b < 5100 || b > 9900 ; ",
+                    "message":"KBJI Pekerja/Buruh Tambang tapi Lapus Non Pertambangan",
+                    "type":2
+                }
+            ]
+        },
+        {
+            "dataKey":"kbji",
+            "componentValidation":["kbji","r16b", "r13a", "kbli"],
+            "validations": [
+                {
+                    "test":"let a = getValue('kbji#'+getRowIndex(0)).length\n a < 4; ",
+                    "message":"KBJI harus 4 digit",
+                    "type":2
+                },
+                {
+                    "test":"let a = getValue('kbji#'+getRowIndex(0))\n let b = getValue('r16b#'+getRowIndex(0)) \n String(a).substring(0, 2) == '63' && b < 3 ; ",
+                    "message":"KBJI Subsisten tapi tidak digunakan sendiri",
+                    "type":2
+                },
+                {
+                    "test":"let a = getValue('kbji#'+getRowIndex(0))\n let b = getValue('r16b#'+getRowIndex(0)) \n String(a).substring(0, 2) != '63' && b > 2 ; ",
+                    "message":"Digunakan sendiri tetapi KBJI bukan Subsisten",
+                    "type":2
+                },
+                {
+                    "test":"let a = getValue('kbji#'+getRowIndex(0))\n let b = getValue('r13a#'+getRowIndex(0)) \n  a > 9210 && a < 9217 && b < 4; ",
+                    "message":"KBJI Buruh Pertanian tapi Status Berusaha",
+                    "type":2
+                },
+                {
+                    "test":"let a = getValue('kbji#'+getRowIndex(0))\n let b = Number(getValue('kbli#'+getRowIndex(0))) \n  a > 9210 && a < 9217 && b > 3279;",
+                    "message":"KBJI Buruh Pertanian tapi Lapus Non Pertanian",
+                    "type":2
+                },
+                {
+                    "test":"let a = getValue('kbji#'+getRowIndex(0))\n let b = getValue('r13a#'+getRowIndex(0)) \n  a == 8111 && b < 4 || a == 9311 && b < 4; ",
+                    "message":"KBJI Pekerja/Buruh Tambang tapi Status Berusaha",
+                    "type":2
+                },
+                {
+                    "test":"let a = getValue('kbji#'+getRowIndex(0))\n let b = Number(getValue('kbli#'+getRowIndex(0))) \n a == 8111 && b < 5100 || b > 9900 || a == 9311 && b < 5100 || b > 9900 ; ",
+                    "message":"KBJI Pekerja/Buruh Tambang tapi Lapus Non Pertambangan",
+                    "type":2
+                }
+            ]
+        },
+        {
+            "dataKey":"r16a",
+            "componentValidation":["r16a@$ROW$"],
+            "validations": [
+                {
+                    "test":"let a = getValue('r16a#'+getRowIndex(0))\n a < 1 || a > 5",
+                    "message":"Isian hanya boleh 1 s.d. 5",
+                    "type":2
+                }
+            ]
+        },
+        {
+            "dataKey":"r16b",
+            "componentValidation":["kbji","r16b"],
+            "validations": [
+                {
+                    "test":"let a = getValue('r16b#'+getRowIndex(0))\n a < 1 || a > 4",
+                    "message":"Isian hanya boleh 1 s.d. 5",
+                    "type":2
+                },
+                {
+                    "test":"let a = getValue('kbji#'+getRowIndex(0))\n let b = getValue('r16b#'+getRowIndex(0)) \n String(a).substring(0, 2) == '63' && b < 3 ; ",
+                    "message":"KBJI Subsisten tapi tidak digunakan sendiri",
+                    "type":2
+                },
+                {
+                    "test":"let a = getValue('kbji#'+getRowIndex(0))\n let b = getValue('r16b#'+getRowIndex(0)) \n  String(a).substring(0, 2) != '63' && b > 2 ; ",
+                    "message":"Digunakan sendiri tetapi KBJI bukan Subsisten",
+                    "type":2
+                }
+            ]
+        },
+        {
+            "dataKey":"r37a",
+            "componentValidation":["r37a@$ROW$"],
+            "validations": [
+                {
+                    "test":"let a = getValue('r37a#'+getRowIndex(0))\n a < 1 || a > 2",
+                    "message":"Isian hanya boleh 1 atau 2",
+                    "type":2
+                }
+            ]
+        },
+        {
+            "dataKey":"r37b",
+            "componentValidation":["r37b@$ROW$"],
+            "validations": [
+                {
+                    "test":"let a = getValue('r37b#'+getRowIndex(0))\n a < 1 || a > 2",
+                    "message":"Isian hanya boleh 1 atau 2",
+                    "type":2
+                }
+            ]
+        },
+        {
+            "dataKey":"r41a",
+            "componentValidation":["r41a@$ROW$"],
+            "validations": [
+                {
+                    "test":"let a = getValue('r41a#'+getRowIndex(0))\n a < 1 || a > 8",
+                    "message":"Isian hanya boleh 1 s.d. 8",
+                    "type":2
+                }
+            ]
+        },
+        {
+            "dataKey":"r44a",
+            "componentValidation":["r44a@$ROW$"],
+            "validations": [
+                {
+                    "test":"let a = getValue('r44a#'+getRowIndex(0))\n a < 1 || a > 3",
+                    "message":"Isian hanya boleh 1 s.d. 3",
+                    "type":2
+                }
+            ]
+        },
+        {
+            "dataKey":"r49d",
+            "componentValidation":["r49d@$ROW$"],
+            "validations": [
+                {
+                    "test":"let a = getValue('r49d#'+getRowIndex(0))\n a < 1 || a > 4",
+                    "message":"Isian hanya boleh 1 s.d. 4",
+                    "type":2
+                }
+            ]
+        }
+    ]
+ }
+  
