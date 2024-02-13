@@ -145,7 +145,7 @@ function initForm(reference,  template, preset, response, validation, media, rem
 
 //variable config
 let config = {
-  clientMode: 2, // 1 => CAWI ; 2 => CAPI ;
+  clientMode: 1, // 1 => CAWI ; 2 => CAPI ;
   //both token and baseUrl are used for data lookup from the api (for selectInput, multiselect Input, and listSelectInput)
   token: ``, //for authentication such as bearer token 
   baseUrl: `https://jsonplaceholder.typicode.com/users/`, // endpoint to fetch
@@ -263,17 +263,17 @@ let setResponseMobile = function (res, rem, princ, ref) {
 let setSubmitMobile = function (res, rem, princ, ref) {
         responseGear = res
         // mediaGear = med
-        remarkGear = rem
-        principalGear = princ
-        referenceGear = ref
+        // remarkGear = rem
+        // principalGear = princ
+        // referenceGear = ref
 
-        console.log('----------', new Date(), '----------');
+        // console.log('----------', new Date(), '----------');
 
-        console.log('response', responseGear)
-        // console.log('media', mediaGear)
-        console.log('remark', remarkGear)
-        console.log('principal', principalGear)
-        console.log('reference', referenceGear)
+        // console.log('response', responseGear)
+        // // console.log('media', mediaGear)
+        // console.log('remark', remarkGear)
+        // console.log('principal', principalGear)
+        // console.log('reference', referenceGear)
         router.post('/form/store', responseGear)
 }
 

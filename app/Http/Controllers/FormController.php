@@ -69,13 +69,15 @@ class FormController extends Controller
         for($i = 0; $i<$jumlah_art; $i++){
             $response = new Response();
             $response->id_bs = '1';
-            $response->nurt = $answers[6]['answer'];
+            $response->nurt = $answers[6]['answer'];         
+            $response->pcl = $answers[7]['answer'];
+            $response->pml = $answers[8]['answer'];
             $response->no_art = $i + 1;
             $no_urut = '#'.($i+1);
             foreach($answers as $key => $answer){
                 if(str_ends_with($answer['dataKey'], $no_urut)){
                     $dk = rtrim($answer['dataKey'], $no_urut);
-                    $response->$dk = $answer['answer'];
+                    $response->$dk = strval($answer['answer']);
                 }
             }
             $response->save();
