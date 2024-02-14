@@ -98,34 +98,28 @@
               "disableInitial" : true,
               "isCapital" : true,
               "isEditableList" : true
-            }, {
-              "label" : "8. Nomor Urut Rumah Tangga",
-              "type" : 28,
-              "dataKey" : "nurt",
-              "required" : true,
-              "tabular" : false,
-              "encrypted" : false,
-              "enableRemark" : false,
-              "presetMaster" : true,
-              "disableInput" : false,
-              "disableInitial" : false,
-              "isCapital" : true,
-              "isEditableList" : true
-            }
-            , 
+            },
             {
-              "label" : "9. Nama PCL",
-              "type" : 25,
-              "dataKey" : "pcl",
+              "label": "8. Nomor Urut Rumah Tangga",
+              "dataKey": "nurt",
+              "type": 27,
+              "typeOption": 1,
               "required" : true,
-              "tabular" : false,
-              "encrypted" : false,
               "enableRemark" : false,
-              "presetMaster" : true,
-              "disableInput" : false,
-              "disableInitial" : false,
-              "isCapital" : true,
-              "isEditableList" : true
+              "options": [
+
+              ]
+            },
+            {
+              "label": "9. Nama PCL",
+              "dataKey": "pcl",
+              "type": 27,
+              "typeOption": 1,
+              "required" : true,
+              "enableRemark" : false,
+              "options": [
+
+              ]
             },
             {
               "label" : "10. Nama PML",
