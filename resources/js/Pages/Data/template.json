@@ -152,7 +152,7 @@
               "type": 3
             },
             {
-              "label" : "1. Jumlah Anggota Keluarga berumur 15 Tahun Ke-Atas",
+              "label" : "1. Jumlah Anggota Rumah Tangga berumur 15 Tahun Ke-Atas",
               "type" : 28,
               "dataKey" : "jml_art",
               "required" : true,
@@ -164,15 +164,15 @@
               "isEditableList" : true
             },
             {
-              "label": "Anggota Keluarga",
+              "label": "Anggota Rumah Tangga",
               "dataKey": "anggotakeluarganested",
-              "description": "Anggota Keluarga",
+              "description": "Anggota Rumah Tangga",
               "type": 2,
               "sourceQuestion": "jml_art",
               "components": [
                 [
                   {
-                    "label" : "Nama <b>Anggota Keluarga</b>",
+                    "label" : "Nama <b>Anggota Rumah Tangga</b>",
                     "type" : 25,
                     "dataKey" : "nama_art",
                     "required" : true,
