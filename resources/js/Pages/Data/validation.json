@@ -262,6 +262,22 @@
             ]
         },
         {
+            "dataKey":"r25a",
+            "componentValidation":["r25a", "kbji"],
+            "validations": [
+                {
+                    "test":"let a = getValue('r25a#'+getRowIndex(0))\n a < 1 || a > 5",
+                    "message":"Isian hanya boleh 1 s.d. 5",
+                    "type":2
+                },
+                {
+                    "test":"let a = String(getValue('kbji#'+getRowIndex(0))).substring(0,2)\nlet b = Number(getValue('r25a#'+getRowIndex(0)))\n b > 1 && ['01','02','03'].includes(a) ",
+                    "message":"KBJI TNI/Polri tapi tidak PKWTT",
+                    "type":2
+                }
+            ]
+        },
+        {
             "dataKey":"r37a",
             "componentValidation":["r37a@$ROW$"],
             "validations": [
@@ -285,12 +301,28 @@
         },
         {
             "dataKey":"r41a",
-            "componentValidation":["r41a@$ROW$"],
+            "componentValidation":["r41a", "konfirmasi"],
             "validations": [
                 {
                     "test":"let a = getValue('r41a#'+getRowIndex(0))\n a < 1 || a > 8",
                     "message":"Isian hanya boleh 1 s.d. 8",
                     "type":2
+                },
+                {
+                    "test":"let a = getValue('konfirmasi#'+getRowIndex(0))\n let b = getValue('r41a#'+getRowIndex(0))\n b == 3 && a.length < 10;",
+                    "message":"Harus ada konfirmasi jika r41a berkode 3, ketikan hasil konfirmasi minimal 10 huruf",
+                    "type":1
+                }
+            ]
+        },
+        {
+            "dataKey":"konfirmasi",
+            "componentValidation":["konfirmasi", "r41a"],
+            "validations": [
+                {
+                    "test":"let a = getValue('konfirmasi#'+getRowIndex(0))\n let b = getValue('r41a#'+getRowIndex(0))\n b == 3 && a.length < 10;",
+                    "message":"Harus ada konfirmasi jika r41a berkode 3, ketikan hasil konfirmasi minimal 10 huruf",
+                    "type":1
                 }
             ]
         },

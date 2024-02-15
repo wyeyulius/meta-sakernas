@@ -451,6 +451,20 @@
                     "componentEnable": ["r16a@$ROW$", "r16a@$ROW$"]
                   },
                   {
+                    "label": "r25a. Apakah (NAMA) memiliki perjanjian/kontrak kerja/surat keputusan?",
+                    "dataKey": "r25a",
+                    "type" : 28,
+                    "required" : false,
+                    "tabular" : false,
+                    "encrypted" : false,
+                    "enableRemark" : false,
+                    "disableInput" : false,
+                    "disableInitial" : false,
+                    "isEditableList" : true,
+                    "enableCondition": "Number(getValue('r13a@$ROW$')) == '4'",
+                    "componentEnable": ["r13a@$ROW$"]
+                  },
+                  {
                     "label" : "r37a. Dalam seminggu terakhir, apakah (NAMA) mencari pekerjaan?",
                     "type" : 28,
                     "dataKey" : "r37a",
@@ -495,6 +509,22 @@
                     "isEditableList" : true,
                     "enableCondition": "Number(getValue('r37a@$ROW$')) == 2 && Number(getValue('r37b@$ROW$')) == 2",
                     "componentEnable": ["r37a@$ROW$", "r37b@$ROW$"]
+                  },
+                  {
+                    "label" : "Jika r41a = 3, hasil konfirmasi :",
+                    "type" : 25,
+                    "dataKey" : "konfirmasi",
+                    "tabular" : false,
+                    "encrypted" : false,
+                    "enableRemark" : false,
+                    "presetMaster" : true,
+                    "disableInput" : false,
+                    "disableInitial" : false,
+                    "isCapital" : true,
+                    "isEditable" : false,
+                    "isEditableList" : true,
+                    "enableCondition": "Number(getValue('r41a@$ROW$')) == 3",
+                    "componentEnable": ["r41a@$ROW$"]
                   },
                   {
                     "label" : "r44a. Kapan (NAMA) memperoleh pekerjaan/memulai usaha setelah lulus dari pendidikan tertinggi yang ditamatkan?",
