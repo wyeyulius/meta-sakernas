@@ -334,6 +334,22 @@
                     "componentEnable": ["r9a@$ROW$", "r9b@$ROW$", "r9c@$ROW$"]
                   },
                   {
+                    "label" : "Jika r9a/r9b/r9c/r10 kode 1 tapi r8a/r8c/r8e ada yang kode 1 atau r8b/r8d/r8f ada yang kode 5, hasil konfirmasi:",
+                    "type" : 25,
+                    "dataKey" : "konfirmasir10",
+                    "tabular" : false,
+                    "encrypted" : false,
+                    "enableRemark" : false,
+                    "presetMaster" : true,
+                    "disableInput" : false,
+                    "disableInitial" : false,
+                    "isCapital" : true,
+                    "isEditable" : false,
+                    "isEditableList" : true,
+                    "enableCondition": "let a = getValue('r9a@$ROW$')\n let ab = getValue('r9b@$ROW$')\n let ac = getValue('r9c@$ROW$')\n let ad = getValue('r10@$ROW$')\n let b = getValue('r8a@$ROW$') \n let c = getValue('r8b@$ROW$') \n let d = getValue('r8c@$ROW$')\n let e = getValue('r8d@$ROW$') \n let f = getValue('r8e@$ROW$') \n let g = getValue('r8f@$ROW$') \n let arr = [a,ab,ac,ad] \n arr.includes(1) && ( b == 1 || c == 5 || d == 1 || e==5 || f==1 || g==5 )",
+                    "componentEnable": ["r9a@$ROW$", "r8b@$ROW$", "r9c@$ROW$", "r10@$ROW$","r8a@$ROW$", "r8b@$ROW$", "r8c@$ROW$", "r8d@$ROW$", "r8e@$ROW$", "r8f@$ROW$"]
+                  },
+                  {
                     "label" : "r12a. Apa yang dikerjakan (NAMA) di tempat kerja?",
                     "type" : 25,
                     "dataKey" : "r12a",
@@ -447,8 +463,8 @@
                     "disableInput" : false,
                     "disableInitial" : false,
                     "isEditableList" : true,
-                    "enableCondition": "Number(getValue('r16a@$ROW$')) > 0 && Number(getValue('r16a@$ROW$')) < 5",
-                    "componentEnable": ["r16a@$ROW$", "r16a@$ROW$"]
+                    "enableCondition": "Number(getValue('r16a@$ROW$')) > 0 && Number(getValue('r16a@$ROW$')) < 5 && (Number(getValue('r9a@$ROW$')) == 1 || Number(getValue('r9b@$ROW$')) == 1 || Number(getValue('r9c@$ROW$')) == 1 || Number(getValue('r10@$ROW$')))",
+                    "componentEnable": ["r16a@$ROW$", "r16a@$ROW$", "r9a@$ROW$", "r9b@$ROW$", "r9c@$ROW$", "r10@$ROW$"]
                   },
                   {
                     "label": "r25a. Apakah (NAMA) memiliki perjanjian/kontrak kerja/surat keputusan?",
@@ -495,6 +511,22 @@
                     "isEditableList" : true
                   },
                   {
+                    "label" : "Jika r37a / r37b = 1 dan Umur anggota rumah tangga >= 50 tahun, hasil konfirmasi :",
+                    "type" : 25,
+                    "dataKey" : "konfirmasir37",
+                    "tabular" : false,
+                    "encrypted" : false,
+                    "enableRemark" : false,
+                    "presetMaster" : true,
+                    "disableInput" : false,
+                    "disableInitial" : false,
+                    "isCapital" : true,
+                    "isEditable" : false,
+                    "isEditableList" : true,
+                    "enableCondition": "Number(getValue('umur@$ROW$')) >= 50 && (Number(getValue('r37a@$ROW$')) == 1 || Number(getValue('r37b@$ROW$')) == 1)",
+                    "componentEnable": ["r37a@$ROW$", "r37b@$ROW$", "umur@$ROW$"]
+                  },
+                  {
                     "label" : "r41a. Dalam seminggu terakhir, apakah alasan utama (NAMA) tidak mencari pekerjaan dan tidak mempersiapkan usaha?",
                     "type" : 28,
                     "dataKey" : "r41a",
@@ -507,8 +539,8 @@
                     "isCapital" : true,
                     "isEditable" : false,
                     "isEditableList" : true,
-                    "enableCondition": "Number(getValue('r37a@$ROW$')) == 2 && Number(getValue('r37b@$ROW$')) == 2",
-                    "componentEnable": ["r37a@$ROW$", "r37b@$ROW$"]
+                    "enableCondition": "Number(getValue('r37a@$ROW$')) == 2 && Number(getValue('r37b@$ROW$')) == 2 && Number(getValue('umur@$ROW$')) >= 50",
+                    "componentEnable": ["r37a@$ROW$", "r37b@$ROW$", "umur@$ROW$"]
                   },
                   {
                     "label" : "Jika r41a = 3, hasil konfirmasi :",

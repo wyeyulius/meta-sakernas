@@ -114,7 +114,7 @@
         },
         {
             "dataKey":"r9a",
-            "componentValidation":["r9a", "r8a", "r8b", "r8c", "r8d", "r8e", "r8f", "r44a", "r6a"],
+            "componentValidation":["konfirmasir10", "r9a", "r8a", "r8b", "r8c", "r8d", "r8e", "r8f", "r44a", "r6a"],
             "validations": [
                 {
                     "test":"let a = getValue('r9a#'+getRowIndex(0))\n a < 1 || a > 2",
@@ -122,8 +122,8 @@
                     "type":2
                 },
                 {
-                    "test":"let a = getValue('r9a#'+getRowIndex(0))\n let b = getValue('r8a#'+getRowIndex(0)) \n let c = getValue('r8b#'+getRowIndex(0)) \n let d = getValue('r8c#'+getRowIndex(0))\n let e = getValue('r8d#'+getRowIndex(0)) \n let f = getValue('r8e#'+getRowIndex(0)) \n let g = getValue('r8f#'+getRowIndex(0)) \n a == 1 && ( b == 1 || c == 5 || d == 1 || e==5 || f==1 || g==5 )",
-                    "message":"r9a kode 1 tapi r8a/r8c/r8e ada yang kode 1 atau r8b/r8d/r8f ada yang kode 5",
+                    "test":"let k = getValue('konfirmasir10#'+getRowIndex(0)) \n let a = getValue('r9a#'+getRowIndex(0))\n let b = getValue('r8a#'+getRowIndex(0)) \n let c = getValue('r8b#'+getRowIndex(0)) \n let d = getValue('r8c#'+getRowIndex(0))\n let e = getValue('r8d#'+getRowIndex(0)) \n let f = getValue('r8e#'+getRowIndex(0)) \n let g = getValue('r8f#'+getRowIndex(0)) \n k.length < 10 && a == 1 && ( b == 1 || c == 5 || d == 1 || e==5 || f==1 || g==5 )",
+                    "message":"Konfirmasi jika r9a kode 1 tapi r8a/r8c/r8e ada yang kode 1 atau r8b/r8d/r8f ada yang kode 5",
                     "type":1
                 },
                 {
@@ -135,7 +135,7 @@
         },
         {
             "dataKey":"r9b",
-            "componentValidation":["r9b", "r8a", "r8b", "r8c", "r8d", "r8e", "r8f", "r44a", "r6a"],
+            "componentValidation":["konfirmasir10", "r9b", "r8a", "r8b", "r8c", "r8d", "r8e", "r8f", "r44a", "r6a"],
             "validations": [
                 {
                     "test":"let a = getValue('r9b#'+getRowIndex(0))\n a < 1 || a > 2",
@@ -143,8 +143,8 @@
                     "type":2
                 },
                 {
-                    "test":"let a = getValue('r9b#'+getRowIndex(0))\n let b = getValue('r8a#'+getRowIndex(0)) \n let c = getValue('r8b#'+getRowIndex(0)) \n let d = getValue('r8c#'+getRowIndex(0))\n let e = getValue('r8d#'+getRowIndex(0)) \n let f = getValue('r8e#'+getRowIndex(0)) \n let g = getValue('r8f#'+getRowIndex(0)) \n a == 1 && ( b == 1 || c == 5 || d == 1 || e==5 || f==1 || g==5 )",
-                    "message":"r9b kode 1 tapi r8a/r8c/r8e ada yang kode 1 atau r8b/r8d/r8f ada yang kode 5",
+                    "test":"let k = getValue('konfirmasir10#'+getRowIndex(0)) \n let a = getValue('r9b#'+getRowIndex(0))\n let b = getValue('r8a#'+getRowIndex(0)) \n let c = getValue('r8b#'+getRowIndex(0)) \n let d = getValue('r8c#'+getRowIndex(0))\n let e = getValue('r8d#'+getRowIndex(0)) \n let f = getValue('r8e#'+getRowIndex(0)) \n let g = getValue('r8f#'+getRowIndex(0)) \n k.length < 10 && a == 1 && ( b == 1 || c == 5 || d == 1 || e==5 || f==1 || g==5 )",
+                    "message":"Konfirmasi jika r9b kode 1 tapi r8a/r8c/r8e ada yang kode 1 atau r8b/r8d/r8f ada yang kode 5",
                     "type":1
                 },
                 {
@@ -156,7 +156,7 @@
         },
         {
             "dataKey":"r9c",
-            "componentValidation":["r9c", "r8a", "r8b", "r8c", "r8d", "r8e", "r8f", "r44a", "r6a"],
+            "componentValidation":["konfirmasir10", "r9c", "r8a", "r8b", "r8c", "r8d", "r8e", "r8f", "r44a", "r6a"],
             "validations": [
                 {
                     "test":"let a = getValue('r9c#'+getRowIndex(0))\n a < 1 || a > 2",
@@ -164,8 +164,8 @@
                     "type":2
                 },
                 {
-                    "test":"let a = getValue('r9c#'+getRowIndex(0))\n let b = getValue('r8a#'+getRowIndex(0)) \n let c = getValue('r8b#'+getRowIndex(0)) \n let d = getValue('r8c#'+getRowIndex(0))\n let e = getValue('r8d#'+getRowIndex(0)) \n let f = getValue('r8e#'+getRowIndex(0)) \n let g = getValue('r8f#'+getRowIndex(0)) \n a == 1 && ( b == 1 || c == 5 || d == 1 || e==5 || f==1 || g==5 )",
-                    "message":"r9c kode 1 tapi r8a/r8c/r8e ada yang kode 1 atau r8b/r8d/r8f ada yang kode 5",
+                    "test":"let k = getValue('konfirmasir10#'+getRowIndex(0)) \n let a = getValue('r9c#'+getRowIndex(0))\n let b = getValue('r8a#'+getRowIndex(0)) \n let c = getValue('r8b#'+getRowIndex(0)) \n let d = getValue('r8c#'+getRowIndex(0))\n let e = getValue('r8d#'+getRowIndex(0)) \n let f = getValue('r8e#'+getRowIndex(0)) \n let g = getValue('r8f#'+getRowIndex(0)) \n k.length < 10 && a == 1 && ( b == 1 || c == 5 || d == 1 || e==5 || f==1 || g==5 )",
+                    "message":"Konfirmasi jika r9c kode 1 tapi r8a/r8c/r8e ada yang kode 1 atau r8b/r8d/r8f ada yang kode 5",
                     "type":1
                 },
                 {
@@ -177,7 +177,7 @@
         },
         {
             "dataKey":"r10",
-            "componentValidation":["r10","r8a", "r8b", "r8c", "r8d", "r8e", "r8f", "r44a", "r6a"],
+            "componentValidation":["konfirmasir10","r10","r8a", "r8b", "r8c", "r8d", "r8e", "r8f", "r44a", "r6a"],
             "validations": [
                 {
                     "test":"let a = getValue('r10#'+getRowIndex(0))\n a < 1 || a > 2",
@@ -185,14 +185,25 @@
                     "type":2
                 },
                 {
-                    "test":"let a = getValue('r10#'+getRowIndex(0))\n let b = getValue('r8a#'+getRowIndex(0)) \n let c = getValue('r8b#'+getRowIndex(0)) \n let d = getValue('r8c#'+getRowIndex(0))\n let e = getValue('r8d#'+getRowIndex(0)) \n let f = getValue('r8e#'+getRowIndex(0)) \n let g = getValue('r8f#'+getRowIndex(0)) \n a == 1 && ( b == 1 || c == 5 || d == 1 || e==5 || f==1 || g==5 )",
-                    "message":"r10 kode 1 tapi r8a/r8c/r8e ada yang kode 1 atau r8b/r8d/r8f ada yang kode 5",
+                    "test":"let k = getValue('konfirmasir10#'+getRowIndex(0)) \n let a = getValue('r10#'+getRowIndex(0))\n let b = getValue('r8a#'+getRowIndex(0)) \n let c = getValue('r8b#'+getRowIndex(0)) \n let d = getValue('r8c#'+getRowIndex(0))\n let e = getValue('r8d#'+getRowIndex(0)) \n let f = getValue('r8e#'+getRowIndex(0)) \n let g = getValue('r8f#'+getRowIndex(0)) \n k.length < 10 && a == 1 && ( b == 1 || c == 5 || d == 1 || e==5 || f==1 || g==5 )",
+                    "message":"Konfirmasi jika r10 kode 1 tapi r8a/r8c/r8e ada yang kode 1 atau r8b/r8d/r8f ada yang kode 5",
                     "type":1
                 },
                 {
                     "test":"let a = getValue('r44a#'+getRowIndex(0))\n let b = getValue('r10#'+getRowIndex(0)) \n let f = getValue('r6a#'+getRowIndex(0)) \n f == 1 && a != 2 && b == 1",
                     "message":"r10 kode 1, r6a = 1, tapi r44a tidak sama dengan 2",
                     "type":2
+                }
+            ]
+        },
+        {
+            "dataKey":"konfirmasir10",
+            "componentValidation":["konfirmasir10","r9a","r9b","r9c","r10","r8a", "r8b", "r8c", "r8d", "r8e", "r8f", "r44a", "r6a"],
+            "validations": [
+                {
+                    "test":"let k = getValue('konfirmasir10#'+getRowIndex(0)) \n let a = getValue('r9a#'+getRowIndex(0))\n let ab = getValue('r9b#'+getRowIndex(0))\n let ac = getValue('r9c#'+getRowIndex(0))\n let ad = getValue('r10#'+getRowIndex(0))\n let b = getValue('r8a#'+getRowIndex(0)) \n let c = getValue('r8b#'+getRowIndex(0)) \n let d = getValue('r8c#'+getRowIndex(0))\n let e = getValue('r8d#'+getRowIndex(0)) \n let f = getValue('r8e#'+getRowIndex(0)) \n let g = getValue('r8f#'+getRowIndex(0)) \n let arr = [a,ab,ac,ad] \n k.length < 10 && arr.includes(1) && ( b == 1 || c == 5 || d == 1 || e==5 || f==1 || g==5 )",
+                    "message":"Konfirmasi jika r9a/r9b/r9c/r10 kode 1 tapi r8a/r8c/r8e ada yang kode 1 atau r8b/r8d/r8f ada yang kode 5",
+                    "type":1
                 }
             ]
         },
@@ -339,7 +350,7 @@
         },
         {
             "dataKey":"r37a",
-            "componentValidation":["r37a", "umur"],
+            "componentValidation":["r37a", "umur", "konfirmasi"],
             "validations": [
                 {
                     "test":"let a = getValue('r37a#'+getRowIndex(0))\n a < 1 || a > 2",
@@ -347,7 +358,7 @@
                     "type":2
                 },
                 {
-                    "test":"let a = getValue('r37a#'+getRowIndex(0))\n a == 1 && getValue('umur#'+getRowIndex(0)) >=  50",
+                    "test":"let a = getValue('r37a#'+getRowIndex(0)) \n let b = getValue('konfirmasir37#'+getRowIndex(0)) \n a == 1 && getValue('umur#'+getRowIndex(0)) >= 50 && b.length < 10",
                     "message":"r37a = 1 tapi umur >= 50",
                     "type":1
                 }
@@ -355,7 +366,7 @@
         },
         {
             "dataKey":"r37b",
-            "componentValidation":["r37b", "umur"],
+            "componentValidation":["r37b", "umur", "konfirmasi"],
             "validations": [
                 {
                     "test":"let a = getValue('r37b#'+getRowIndex(0))\n a < 1 || a > 2",
@@ -363,8 +374,24 @@
                     "type":2
                 },
                 {
-                    "test":"let a = getValue('r37b#'+getRowIndex(0))\n a == 1 && getValue('umur#'+getRowIndex(0)) >=  50",
+                    "test":"let a = getValue('r37b#'+getRowIndex(0)) \n let b = getValue('konfirmasir37#'+getRowIndex(0)) \n a == 1 && getValue('umur#'+getRowIndex(0)) >= 50 && b.length < 10",
                     "message":"r37b = 1 tapi umur >= 50",
+                    "type":1
+                }
+            ]
+        },
+        {
+            "dataKey":"konfirmasir37",
+            "componentValidation":["r37a","r37b", "konfirmasir37"],
+            "validations": [
+                {
+                    "test":"let a = getValue('r37a#'+getRowIndex(0))\n let b = getValue('konfirmasir37#'+getRowIndex(0)) \n a == 1 && getValue('umur#'+getRowIndex(0)) >=  50 && b.length < 10",
+                    "message":"Konfirmasi jika r37a = 1 tapi umur >= 50",
+                    "type":1
+                },
+                {
+                    "test":"let a = getValue('r37b#'+getRowIndex(0))\n let b = getValue('konfirmasir37#'+getRowIndex(0)) \n a == 1 && getValue('umur#'+getRowIndex(0)) >=  50 && b.length < 10",
+                    "message":"Konfirmasi jika r37b = 1 tapi umur >= 50",
                     "type":1
                 }
             ]
