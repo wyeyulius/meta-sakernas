@@ -30,9 +30,14 @@ class FormController extends Controller
                     ->where('region_id', '=', $region_id)
                     ->where('pml', '=', $pml)
                     ->get();
+        $region = null;
+        if ($region_id != null) {
+            $region = Region::where('id', $region_id)->first();
+        }
         return Inertia::render('Form/Index', [
             "kabupatens" => $kabupaten,
-            "data" => $data
+            "data" => $data,
+            "region" => $region
         ]);
     }
 

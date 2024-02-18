@@ -15,7 +15,8 @@ const bloks = ref([]);
 // Use `defineProps` for props instead of `defineProps({ ... })`
 defineProps({
     kabupatens: Object,
-    data: Object
+    data: Object,
+    region: Object
 })
 
 const destroy = (id) => {
@@ -23,7 +24,7 @@ const destroy = (id) => {
         router.delete(route('form.destroy', { region_id : blok.value, id}), {
             preserveState: true,
             preserveScroll: true,
-            only: ['data']
+            only: ['data', 'region']
         })
     }
 }
@@ -67,7 +68,7 @@ function submit() {
     router.visit("/form/" + blok.value, {
         preserveState: true,
         preserveScroll: true,
-        only: ['data']
+        only: ['data', 'region']
     })
 }
 
@@ -77,9 +78,9 @@ function entri() {
         preserveScroll: false,
     })
 }
-
+const par = route().params
 function edit(id) {
-    router.visit(route('form.edit', { region_id : blok.value, id}), {
+    router.visit(route('form.edit', { region_id : par['region_id'], id}), {
         preserveState: false,
         preserveScroll: false,
     })
@@ -147,6 +148,10 @@ function edit(id) {
                     </form>
                 </div>
                 <div class="relative mt-3 overflow-x-auto ">
+                    <div v-if="region != null">
+                            <p>WILAYAH: [{{ region.provinsi }}{{ region.kabupaten }}{{ region.kecamatan }}{{ region.desa }}{{ region.nbs }}{{ region.nks }}] </p>
+                    </div>
+
                     <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                         <thead class="text-xs text-gray-700 uppercase bg-gray-300 dark:bg-gray-700 dark:text-gray-400">
                             <tr>
