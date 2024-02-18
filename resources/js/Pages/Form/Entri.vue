@@ -138,7 +138,7 @@ const page = usePage()
 
 const prefill = computed(() => page.props.prefill).value;
 
-const region_id = computed(() => page.props.region_id).value;
+// const region_id = computed(() => page.props.region_id).value;
 
 const pcl = computed(() => page.props.pcl).value;
 
@@ -147,6 +147,13 @@ const nurt = computed(() => page.props.nurt).value;
 const rawPcl = toRaw(pcl)
 
 const rawNurt = toRaw(nurt)
+
+const answers = computed(() => page.props.response).value
+
+if (answers != null) {
+  response['answers'] = toRaw(answers)
+}
+
 
 preset['predata'] = prefill[Object.entries(prefill)[0][0]]
 
@@ -292,13 +299,23 @@ let setSubmitMobile = function (res, rem, princ, ref) {
         // console.log('remark', remarkGear)
         // console.log('principal', principalGear)
         // console.log('reference', referenceGear)
-
-        router.visit('/form/store/' + region_id,{
-            method: 'post',
-            data : responseGear,
-            preserveState: false,
-            preserveScroll: false,
-        })
+        const par = route().params
+        if (route().current() == "form.edit") {
+          router.visit('/form/update/' + par['region_id'] + '/' + par['id'],{
+              method: 'post',
+              data : responseGear,
+              preserveState: false,
+              preserveScroll: false,
+          })
+        }
+        else{
+          router.visit('/form/store/' + par['region_id'],{
+              method: 'post',
+              data : responseGear,
+              preserveState: false,
+              preserveScroll: false,
+          })
+        }
 
 }
 

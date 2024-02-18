@@ -37,7 +37,9 @@ Route::get('/dashboard', function () {
 Route::get('/form/{region_id?}', [FormController::class, 'index'])->middleware(['auth', 'verified'])->name('form.index');
 Route::get('/form/create/{region_id}', [FormController::class, 'create'])->middleware(['auth', 'verified'])->name('form.create');
 Route::post('/form/store/{region_id}', [FormController::class, 'store'])->middleware(['auth', 'verified'])->name('form.store');
-Route::delete('/form/destroy/{id}', [FormController::class, 'destroy'])->middleware(['auth', 'verified'])->name('form.destroy');
+Route::delete('/form/destroy/{region_id}/{id}', [FormController::class, 'destroy'])->middleware(['auth', 'verified'])->name('form.destroy');
+Route::get('/form/edit/{region_id}/{id}', [FormController::class, 'edit'])->middleware(['auth', 'verified'])->name('form.edit');
+Route::post('/form/update/{region_id}/{nurt}', [FormController::class, 'update'])->middleware(['auth', 'verified'])->name('form.update');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
