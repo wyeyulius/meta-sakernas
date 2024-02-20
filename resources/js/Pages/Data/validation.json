@@ -251,7 +251,7 @@
         },
         {
             "dataKey":"kbji",
-            "componentValidation":["kbji","r16b", "r13a", "kbli"],
+            "componentValidation":["kbji","r16a", "r16b", "r13a", "kbli"],
             "validations": [
                 {
                     "test":"let a = getValue('kbji#'+getRowIndex(0)).length\n a < 4; ",
@@ -259,12 +259,12 @@
                     "type":2
                 },
                 {
-                    "test":"let a = getValue('kbji#'+getRowIndex(0))\n let b = getValue('r16b#'+getRowIndex(0)) \n String(a).substring(0, 2) == '63' && b < 3 ; ",
+                    "test":"let a = getValue('kbji#'+getRowIndex(0))\n let b = getValue('r16b#'+getRowIndex(0)) \n let c = getValue('r16a#'+getRowIndex(0)) \n String(a).substring(0, 2) == '63' && b < 3 ; ",
                     "message":"KBJI Subsisten tapi tidak digunakan sendiri",
                     "type":2
                 },
                 {
-                    "test":"let a = getValue('kbji#'+getRowIndex(0))\n let b = getValue('r16b#'+getRowIndex(0)) \n String(a).substring(0, 2) != '63' && b > 2 ; ",
+                    "test":"let a = getValue('kbji#'+getRowIndex(0))\n let b = getValue('r16b#'+getRowIndex(0)) \n let c = getValue('r16a#'+getRowIndex(0)) \n String(a).substring(0, 2) != '63' && b > 2; ",
                     "message":"Digunakan sendiri tetapi KBJI bukan Subsisten",
                     "type":2
                 },

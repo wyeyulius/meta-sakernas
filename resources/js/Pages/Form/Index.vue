@@ -78,8 +78,9 @@ function entri() {
         preserveScroll: false,
     })
 }
-const par = route().params
+
 function edit(id) {
+    const par = route().params
     router.visit(route('form.edit', { region_id : par['region_id'], id}), {
         preserveState: false,
         preserveScroll: false,
