@@ -478,7 +478,7 @@
                     "disableInitial" : false,
                     "isEditableList" : true,
                     "enableCondition": "Number(getValue('r13a@$ROW$')) == '4'",
-                    "componentEnable": ["r13a@$ROW$"]
+                    "componentEnable": ["r13a@$ROW$", "r9a@$ROW$", "r9b@$ROW$", "r9c@$ROW$", "r10@$ROW$"]
                   },
                   {
                     "label" : "r37a. Dalam seminggu terakhir, apakah (NAMA) mencari pekerjaan?",
@@ -539,7 +539,7 @@
                     "isCapital" : true,
                     "isEditable" : false,
                     "isEditableList" : true,
-                    "enableCondition": "Number(getValue('r37a@$ROW$')) == 2 && Number(getValue('r37b@$ROW$')) == 2 && Number(getValue('umur@$ROW$')) >= 50",
+                    "enableCondition": "Number(getValue('r37a@$ROW$')) == 2 && Number(getValue('r37b@$ROW$')) == 2",
                     "componentEnable": ["r37a@$ROW$", "r37b@$ROW$", "umur@$ROW$"]
                   },
                   {
@@ -555,7 +555,7 @@
                     "isCapital" : true,
                     "isEditable" : false,
                     "isEditableList" : true,
-                    "enableCondition": "Number(getValue('r41a@$ROW$')) == 3",
+                    "enableCondition": "Number(getValue('r41a@$ROW$')) == 3 && Number(getValue('umur@$ROW$')) >= 50",
                     "componentEnable": ["r41a@$ROW$"]
                   },
                   {

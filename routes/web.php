@@ -34,6 +34,10 @@ Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+Route::get('/admin', function () {
+    return Inertia::render('Admin/Index');
+})->middleware(['auth', 'verified'])->name('admin');
+
 Route::get('/form/{region_id?}', [FormController::class, 'index'])->middleware(['auth', 'verified'])->name('form.index');
 Route::get('/form/create/{region_id}', [FormController::class, 'create'])->middleware(['auth', 'verified'])->name('form.create');
 Route::post('/form/store/{region_id}', [FormController::class, 'store'])->middleware(['auth', 'verified'])->name('form.store');

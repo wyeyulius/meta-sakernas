@@ -22,6 +22,11 @@ createInertiaApp({
             .mount(el);
     },
     progress: {
+        // Whether to include the default NProgress styles...
+        includeCSS: true,
+
+        // Whether the NProgress spinner will be shown...
+        showSpinner: true,
         color: '#020eb3',
     },
 });

@@ -337,7 +337,7 @@
             "componentValidation":["r25a", "kbji"],
             "validations": [
                 {
-                    "test":"let a = getValue('r25a#'+getRowIndex(0))\n a < 1 || a > 5",
+                    "test":"let a = getValue('r25a#'+getRowIndex(0))\n a != '' && (a < 1 || a > 5)",
                     "message":"Isian hanya boleh 1 s.d. 5",
                     "type":2
                 },
