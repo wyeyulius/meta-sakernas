@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FormController;
+use App\Http\Controllers\AdminController;
 use Inertia\Inertia;
 use App\Models\Region;
 use Illuminate\Support\Facades\Redirect;
@@ -26,29 +27,33 @@ use Illuminate\Support\Facades\Redirect;
 //     ]);
 // });
 
-Route::get('/', function () {
-    return Redirect::route('form.index');
-});
-
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('/admin', function () {
-    return Inertia::render('Admin/Index');
-})->middleware(['auth', 'verified'])->name('admin');
+//Routes for Admin
+Route::group(['as' => 'admin.', 'prefix' => 'admin', 'middleware' => ['auth', 'verified','is.admin']], function () {
+    Route::get('/', [AdminController::class, 'index'])->name('index');
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+});
 
-Route::get('/form/{region_id?}', [FormController::class, 'index'])->middleware(['auth', 'verified'])->name('form.index');
-Route::get('/form/create/{region_id}', [FormController::class, 'create'])->middleware(['auth', 'verified'])->name('form.create');
-Route::post('/form/store/{region_id}', [FormController::class, 'store'])->middleware(['auth', 'verified'])->name('form.store');
-Route::delete('/form/destroy/{region_id}/{id}', [FormController::class, 'destroy'])->middleware(['auth', 'verified'])->name('form.destroy');
-Route::get('/form/edit/{region_id}/{id}', [FormController::class, 'edit'])->middleware(['auth', 'verified'])->name('form.edit');
-Route::post('/form/update/{region_id}/{nurt}', [FormController::class, 'update'])->middleware(['auth', 'verified'])->name('form.update');
-
-Route::middleware('auth')->group(function () {
+//Routes for PML
+Route::middleware(['auth', 'verified', 'is.pml'])->group(function () {
+    Route::get('/', function () {
+        return Redirect::route('form.index');
+    });
+    //Routes for Profile
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     // Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    //Routes for Form
+    Route::get('/form/{region_id?}', [FormController::class, 'index'])->name('form.index');
+    Route::get('/form/create/{region_id}', [FormController::class, 'create'])->name('form.create');
+    Route::post('/form/store/{region_id}', [FormController::class, 'store'])->name('form.store');
+    Route::delete('/form/destroy/{region_id}/{id}', [FormController::class, 'destroy'])->name('form.destroy');
+    Route::get('/form/edit/{region_id}/{id}', [FormController::class, 'edit'])->name('form.edit');
+    Route::post('/form/update/{region_id}/{nurt}', [FormController::class, 'update'])->name('form.update');
 });
 
 Route::get('/kecamatan/{kabupaten}', function (string $kabupaten) {
