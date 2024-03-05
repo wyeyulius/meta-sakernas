@@ -125,8 +125,8 @@ const { showingTwoLevelMenu } = showMenu();
         </Link> -->
 
         <Link class="flex items-center px-6 py-2 mt-3 duration-200 border-l-4" :class="[
-          route().current() === 'profile.edit' ? activeClass : inactiveClass,
-        ]" :href="route('profile.edit')">
+          route().current() === 'admin.export' ? activeClass : inactiveClass,
+        ]" :href="route('admin.export')">
         <svg class="w-5 h-5" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path
             d="M7 3C6.44772 3 6 3.44772 6 4C6 4.55228 6.44772 5 7 5H13C13.5523 5 14 4.55228 14 4C14 3.44772 13.5523 3 13 3H7Z"

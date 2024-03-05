@@ -151,7 +151,7 @@ class FormController extends Controller
                 "answer" => $pml
             ],
         ]);
-        $region_id = $region_id;
+
 
         return Inertia::render('Form/Entri', [
             "prefill" => $prefill,

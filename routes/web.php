@@ -34,6 +34,11 @@ Route::get('/dashboard', function () {
 //Routes for Admin
 Route::group(['as' => 'admin.', 'prefix' => 'admin', 'middleware' => ['auth', 'verified','is.admin']], function () {
     Route::get('/', [AdminController::class, 'index'])->name('index');
+    Route::get('/kab/{kab}', [AdminController::class, 'kab'])->name('kab');
+    Route::get('/kec/{kab}/{kec}', [AdminController::class, 'kec'])->name('kec');
+    Route::get('/desa/{kab}/{kec}/{desa}', [AdminController::class, 'desa'])->name('desa');
+    Route::get('/export', [AdminController::class, 'export'])->name('export');
+    Route::post('/export', [AdminController::class, 'download'])->name('export.download');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
 });

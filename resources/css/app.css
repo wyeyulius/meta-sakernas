@@ -1,3 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+table.monitoring tr:last-child {
+    font-weight: bold;  
+    pointer-events: none;
+  }
+
