@@ -70,7 +70,7 @@ function submit() {
       const blob = new Blob([response.data], { type: 'text/csv' });
       const link = document.createElement('a');
       link.href = window.URL.createObjectURL(blob);
-      link.download = 'export.csv';
+      link.download = 'exports.csv';
       link.click();
     } else if (response.status === 204) {
       // Handle the case when there is no data to export

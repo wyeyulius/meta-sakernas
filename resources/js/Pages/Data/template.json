@@ -555,7 +555,7 @@
                     "isCapital" : true,
                     "isEditable" : false,
                     "isEditableList" : true,
-                    "enableCondition": "Number(getValue('r41a@$ROW$')) == 3 && Number(getValue('umur@$ROW$')) >= 50",
+                    "enableCondition": "Number(getValue('r41a@$ROW$')) == 3",
                     "componentEnable": ["r41a@$ROW$"]
                   },
                   {
