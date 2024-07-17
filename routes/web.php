@@ -55,7 +55,8 @@ Route::middleware(['auth', 'verified', 'is.pml'])->group(function () {
     //Routes for Form
     Route::get('/form/{region_id?}', [FormController::class, 'index'])->name('form.index');
     Route::get('/form/create/{region_id}', [FormController::class, 'create'])->name('form.create');
-    Route::post('/form/store/{region_id}', [FormController::class, 'store'])->name('form.store');
+    Route::post('/form/store/{region_id}/{id?}', [FormController::class, 'store'])->name('form.store');
+    Route::post('/form/submit/{region_id}', [FormController::class, 'submit'])->name('form.submit');
     Route::delete('/form/destroy/{region_id}/{id}', [FormController::class, 'destroy'])->name('form.destroy');
     Route::get('/form/edit/{region_id}/{id}', [FormController::class, 'edit'])->name('form.edit');
     Route::post('/form/update/{region_id}/{nurt}', [FormController::class, 'update'])->name('form.update');

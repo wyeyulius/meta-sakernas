@@ -8,7 +8,8 @@
     "dependencies": {
         "@headlessui/vue": "^1.7.19",
         "flowbite": "^2.3.0",
-        "form-gear": "^1.1.1"
+        "form-gear": "^1.1.1",
+        "lodash": "^4.17.21"
     },
     "devDependencies": {
         "@inertiajs/vue3": "^1.0.0",

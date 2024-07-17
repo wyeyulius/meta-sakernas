@@ -21,7 +21,7 @@ defineProps({
 
 const destroy = (id) => {
     if (confirm('Apakah anda yakin menghapus entrian ini?')) {
-        router.delete(route('form.destroy', { region_id : blok.value, id}), {
+        router.delete(route('form.destroy', { region_id: blok.value, id }), {
             preserveState: true,
             preserveScroll: true,
             only: ['data', 'region']
@@ -81,7 +81,7 @@ function entri() {
 
 function edit(id) {
     const par = route().params
-    router.visit(route('form.edit', { region_id : par['region_id'], id}), {
+    router.visit(route('form.edit', { region_id: par['region_id'], id }), {
         preserveState: false,
         preserveScroll: false,
     })
@@ -89,6 +89,7 @@ function edit(id) {
 </script>
 
 <template>
+
     <Head title="Dashboard" />
 
     <AuthenticatedLayout>
@@ -108,7 +109,7 @@ function edit(id) {
                                     class="form-control sm:col-span-3 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg w-full   focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                     id="kabupatens">
                                     <option v-for="kabupaten in kabupatens" :value="kabupaten.id" :key="kabupaten.id">{{
-                                        kabupaten.nama }}</option>
+                        kabupaten.nama }}</option>
                                 </select>
                             </div>
                             <div class="sm:col-span-3 px-3 order-2 sm:order-3">
@@ -118,7 +119,7 @@ function edit(id) {
                                     class="form-control sm:col-span-3 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg w-full focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                     id="kecamatans">
                                     <option v-for="kecamatan in kecamatans" :value="kecamatan.id" :key="kecamatan.id">{{
-                                        kecamatan.nama }}</option>
+                        kecamatan.nama }}</option>
                                 </select>
                             </div>
                             <div class="sm:col-span-3 px-3 order-3 sm:order-2">
@@ -127,16 +128,19 @@ function edit(id) {
                                 <select v-model="desa" name="desa" :disabled="!kecamatan" @change="loadBloks"
                                     class="form-control sm:col-span-3 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg w-full  focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                     id="desas">
-                                    <option v-for="desa in desas" :value="desa.id" :key="desa.id">{{ desa.nama }}</option>
+                                    <option v-for="desa in desas" :value="desa.id" :key="desa.id">{{ desa.nama }}
+                                    </option>
                                 </select>
                             </div>
                             <div class="sm:col-span-3 px-3 order-4 sm:order-4">
                                 <label for="bloks"
-                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">NBS / NKS</label>
+                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">NBS /
+                                    NKS</label>
                                 <select v-model="blok" name="blok" :disabled="!desa"
                                     class="form-control sm:col-span-3 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg w-full focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                     id="bloks">
-                                    <option v-for="blok in bloks" :value="blok.id" :key="blok.id">{{ blok.nama }}</option>
+                                    <option v-for="blok in bloks" :value="blok.id" :key="blok.id">{{ blok.nama }}
+                                    </option>
                                 </select>
                             </div>
                             <div class="sm:col-span-3 px-3 order-5 sm:order-5">
@@ -150,7 +154,9 @@ function edit(id) {
                 </div>
                 <div class="relative mt-3 overflow-x-auto ">
                     <div v-if="region != null">
-                            <p>WILAYAH: [{{ region.provinsi }}{{ region.kabupaten }}{{ region.kecamatan }}{{ region.desa }}{{ region.nbs }}{{ region.nks }}] </p>
+                        <p>WILAYAH: [{{ region.provinsi }}{{ region.kabupaten }}{{ region.kecamatan }}{{ region.desa
+                            }}{{
+                        region.nbs }}{{ region.nks }}] </p>
                     </div>
 
                     <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
@@ -184,26 +190,27 @@ function edit(id) {
                                 class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                 <th scope="row"
                                     class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                    {{datum.nurt}}
+                                    {{ datum.nurt }}
                                 </th>
-                            <td class="px-6 py-4">
-                                {{datum.jumlah_art}}
-                            </td>
-                            <td class="px-6 py-4">
-                                {{datum.created_at}}
-                            </td>
-                            <td class="px-6 py-4">
-                                <button @click="edit(datum.nurt)" type="button" :disabled="!blok"
-                                    class="disabled:bg-gray-200 focus:outline-none text-xs font-medium text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-3 py-2 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">Edit</button>
-                            </td>
-                            <td class="px-6 py-4">
-                                <button @click="destroy(datum.nurt)" type="button" :disabled="!blok"
-                                    class="disabled:bg-gray-200 focus:outline-none text-xs font-medium text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-3 py-2 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Hapus</button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                                <td class="px-6 py-4">
+                                    {{ datum.jumlah_art }}
+                                </td>
+                                <td class="px-6 py-4">
+                                    {{ datum.created_at }}
+                                </td>
+                                <td class="px-6 py-4">
+                                    <button @click="edit(datum.nurt)" type="button" :disabled="!blok"
+                                        class="disabled:bg-gray-200 focus:outline-none text-xs font-medium text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-3 py-2 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">Edit</button>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <button @click="destroy(datum.nurt)" type="button" :disabled="!blok"
+                                        class="disabled:bg-gray-200 focus:outline-none text-xs font-medium text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-3 py-2 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Hapus</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
-    </div>
-</AuthenticatedLayout></template>
+    </AuthenticatedLayout>
+</template>

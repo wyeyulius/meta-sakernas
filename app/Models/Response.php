@@ -9,6 +9,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Response extends Model
 {
     use HasFactory;
+
+    protected $fillable = ['region_id'];
     public function region(): BelongsTo
     {
         return $this->belongsTo(Region::class);

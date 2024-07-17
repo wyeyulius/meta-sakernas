@@ -165,18 +165,102 @@ class FormController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request, string $region_id)
+    public function store(Request $request, string $region_id, $id = null)
+    {
+        try {
+            $req = $request->all();
+            $answers = $req['answers'];
+            $jumlah_art = array_column($answers, 'answer', 'dataKey')['jml_art'] ?? null;
+    
+            if (!$id) {
+                for ($i = 0; $i < $jumlah_art; $i++) {
+                    $response = new Response();
+                    $response->region_id = $region_id;
+                    $response->nurt = array_column($answers, 'answer', 'dataKey')['nurt'][0]['value'] ?? null;
+                    $response->pcl = array_column($answers, 'answer', 'dataKey')['pcl'][0]['value'] ?? null;
+                    $response->pml = array_column($answers, 'answer', 'dataKey')['pml'] ?? null;
+                    $response->no_art = $i + 1;
+                    $no_urut = '#' . ($i + 1);
+    
+                    foreach ($answers as $key => $answer) {
+                        if (str_ends_with($answer['dataKey'], $no_urut)) {
+                            $dk = rtrim($answer['dataKey'], $no_urut);
+                            $response->$dk = is_array($answer['answer'])
+                                ? (empty($answer['answer']) ? null : json_encode($answer['answer']))
+                                : strval($answer['answer']);
+                        }
+                    }
+                    $response->docState = $req['docState'];
+                    $response->submit_status = '2';
+                    $response->save();
+                }
+    
+                return response()->json([
+                    'message' => 'Data berhasil disimpan',
+                    'id' => $response->nurt
+                ], 201);
+            } else {
+                $pml = auth()->user()->name;
+                // Response::where('region_id', $region_id)->where('pml', '=', $pml)->where('nurt', $id)->delete();
+                    
+                $req = $request->all();
+                $answers = $req['answers'];
+                $jumlah_art = array_column($answers, 'answer', 'dataKey')['jml_art'] ?? null;
+                $nurt = array_column($answers, 'answer', 'dataKey')['nurt'][0]['value'] ?? null;
+                Response::where('region_id', $region_id)
+                    ->where('pml', $pml)
+                    ->where('nurt', $id)
+                    ->where('no_art', '>', $jumlah_art)
+                    ->delete();
+                    
+                for ($i = 0; $i < $jumlah_art; $i++) {
+                    $response = Response::firstOrNew([
+                        'region_id' => $region_id, 
+                        'pml' => $pml, 
+                        'nurt' => $id, 
+                        'no_art' => $i+1
+                    ]);
+                    $response->region_id = $region_id;
+                    $response->nurt = $nurt;
+                    $response->pcl = array_column($answers, 'answer', 'dataKey')['pcl'][0]['value'] ?? null;
+                    $response->pml = array_column($answers, 'answer', 'dataKey')['pml'] ?? null;
+                    $response->no_art = $i + 1;
+                    $no_urut = '#' . ($i + 1);
+                
+                    foreach ($answers as $key => $answer) {
+                    if (str_ends_with($answer['dataKey'], $no_urut)) {
+                        $dk = rtrim($answer['dataKey'], $no_urut);
+                        $response->$dk = is_array($answer['answer'])
+                            ? (empty($answer['answer']) ? null : json_encode($answer['answer']))
+                            : strval($answer['answer']);
+                    }
+                    }
+                    $response->docState = $req['docState'];
+                    $response->submit_status = '2';
+                    $response->save();
+                }
+                return response()->json([
+                    'message' => 'Data berhasil disimpan',
+                    'id' => $response->nurt
+                ], 201);
+            }
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Error: ' . $e->getMessage()], 500);
+        }
+
+    }
+    public function submit(Request $request, string $region_id)
     {
         $req = $request->all();
         $answers = $req['answers'];
-        $jumlah_art = $answers[9]['answer'];
+        $jumlah_art = array_column($answers, 'answer', 'dataKey')['jml_art'] ?? null;
 
         for($i = 0; $i<$jumlah_art; $i++){
             $response = new Response();
             $response->region_id = $region_id;
-            $response->nurt = $answers[6]['answer'][0]['value'];
-            $response->pcl = $answers[7]['answer'][0]['value'];
-            $response->pml = $answers[8]['answer'];
+            $response->nurt = array_column($answers, 'answer', 'dataKey')['nurt'][0]['value'] ?? null;
+            $response->pcl = array_column($answers, 'answer', 'dataKey')['pcl'][0]['value'] ?? null;
+            $response->pml = array_column($answers, 'answer', 'dataKey')['pml'] ?? null;
             $response->no_art = $i + 1;
             $no_urut = '#'.($i+1);
             foreach($answers as $key => $answer){
@@ -185,6 +269,8 @@ class FormController extends Controller
                     $response->$dk = strval($answer['answer']);
                 }
             }
+            $response->docState = $req['docState'];
+            $response->submit_status = '1';
             $response->save();
         }
         return inertia_location('/');
@@ -275,7 +361,6 @@ class FormController extends Controller
 
         $nurt = array_values($nurt);
 
-
         $pcl = DB::table('users')
                     ->select('name as label', 'name as value')
                     ->where('kabupaten','=', $kab)
@@ -288,6 +373,7 @@ class FormController extends Controller
                     ->where('pml', '=', $pml)
                     ->where('nurt', "=", $id )
                     ->get();
+
         $field = array('id', 'region_id', 'pcl', 'pml', 'nurt', 'no_art');
         $response = [
             [
@@ -372,26 +458,43 @@ class FormController extends Controller
      */
     public function update(Request $request, string $region_id, string $id)
     {
-        $pml = auth()->user()->name ;
-        Response::where('region_id', $region_id)->where('pml', '=', $pml)->where('nurt', $id)->delete();
+        $pml = auth()->user()->name;
+        // Response::where('region_id', $region_id)->where('pml', '=', $pml)->where('nurt', $id)->delete();
+            
         $req = $request->all();
         $answers = $req['answers'];
-        $jumlah_art = $answers[9]['answer'];
-
-        for($i = 0; $i<$jumlah_art; $i++){
-            $response = new Response();
+        $jumlah_art = array_column($answers, 'answer', 'dataKey')['jml_art'] ?? null;
+        $nurt = array_column($answers, 'answer', 'dataKey')['nurt'][0]['value'] ?? null;
+        Response::where('region_id', $region_id)
+            ->where('pml', $pml)
+            ->where('nurt', $id)
+            ->where('no_art', '>', $jumlah_art)
+            ->delete();
+            
+        for ($i = 0; $i < $jumlah_art; $i++) {
+            $response = Response::firstOrNew([
+                'region_id' => $region_id, 
+                'pml' => $pml, 
+                'nurt' => $id, 
+                'no_art' => $i+1
+            ]);
             $response->region_id = $region_id;
-            $response->nurt = $answers[6]['answer'][0]['value'];
-            $response->pcl = $answers[7]['answer'][0]['value'];
-            $response->pml = $answers[8]['answer'];
+            $response->nurt = $nurt;
+            $response->pcl = array_column($answers, 'answer', 'dataKey')['pcl'][0]['value'] ?? null;
+            $response->pml = array_column($answers, 'answer', 'dataKey')['pml'] ?? null;
             $response->no_art = $i + 1;
-            $no_urut = '#'.($i+1);
-            foreach($answers as $key => $answer){
-                if(str_ends_with($answer['dataKey'], $no_urut)){
-                    $dk = rtrim($answer['dataKey'], $no_urut);
-                    $response->$dk = strval($answer['answer']);
-                }
+            $no_urut = '#' . ($i + 1);
+        
+            foreach ($answers as $key => $answer) {
+            if (str_ends_with($answer['dataKey'], $no_urut)) {
+                $dk = rtrim($answer['dataKey'], $no_urut);
+                $response->$dk = is_array($answer['answer'])
+                    ? (empty($answer['answer']) ? null : json_encode($answer['answer']))
+                    : strval($answer['answer']);
             }
+            }
+            $response->docState = $req['docState'];
+            $response->submit_status = '2';
             $response->save();
         }
         return inertia_location('/');
