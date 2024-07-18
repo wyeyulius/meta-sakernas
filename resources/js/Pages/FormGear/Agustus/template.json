@@ -1,0 +1,621 @@
+{
+  "description": "PEMERIKSAAN DATA SAKERNAS",
+  "dataKey": "META-SAKERNAS-2024",
+  "title": "META SAKERNAS 2024",
+  "acronym": "META SAKERNAS",
+  "version": "0.0.1",
+  "components": [
+    [
+      {
+        "label": "BLOK I",
+        "dataKey": "blok1",
+        "description": "KETERANGAN SAMPEL",
+        "type": 1,
+        "components": [
+          [
+            {
+              "label" : "<div class=\"text-center border-2 p-4 rounded-full\" style=\"backgrond-color: #B0E0E6\"><b>I. KETERANGAN SAMPEL</b></div>",
+              "type" : 3,
+              "dataKey" : "head_blok1"
+            },
+            {
+              "label" : "<span class=\"font-normal\">1. Provinsi</span>",
+              "type" : 25,
+              "dataKey" : "prov",
+              "required" : false,
+              "tabular" : false,
+              "encrypted" : false,
+              "enableRemark" : false,
+              "presetMaster" : true,
+              "disableInput" : true,
+              "disableInitial" : true,
+              "isCapital" : false
+            },
+            {
+              "label" : "<span class=\"font-normal\">2. Kabupaten/Kota</span>",
+              "type" : 25,
+              "dataKey" : "kab",
+              "required" : false,
+              "tabular" : false,
+              "encrypted" : false,
+              "enableRemark" : false,
+              "presetMaster" : true,
+              "disableInput" : true,
+              "disableInitial" : true,
+              "isCapital" : false
+            },
+            {
+              "label" : "<span class=\"font-normal\">3. Kecamatan</span>",
+              "type" : 25,
+              "dataKey" : "kec",
+              "required" : false,
+              "tabular" : false,
+              "encrypted" : false,
+              "enableRemark" : false,
+              "presetMaster" : true,
+              "disableInput" : true,
+              "disableInitial" : true,
+              "isCapital" : false
+            },
+            {
+              "label" : "<span class=\"font-normal\">4. Desa/Kelurahan</span>",
+              "type" : 25,
+              "dataKey" : "desa",
+              "required" : false,
+              "tabular" : false,
+              "encrypted" : false,
+              "enableRemark" : false,
+              "presetMaster" : true,
+              "disableInput" : true,
+              "disableInitial" : true,
+              "isCapital" : false,
+              "isEditable" : false
+            },
+            {
+              "label" : "6. Nomor Blok Sensus",
+              "type" : 25,
+              "dataKey" : "nbs",
+              "required" : false,
+              "tabular" : false,
+              "encrypted" : false,
+              "enableRemark" : false,
+              "presetMaster" : true,
+              "disableInput" : true,
+              "disableInitial" : true,
+              "isCapital" : true
+            },
+            {
+              "label" : "7. Nomor Kode Sampel",
+              "type" : 25,
+              "dataKey" : "nks",
+              "required" : false,
+              "tabular" : false,
+              "encrypted" : false,
+              "answer" : "",
+              "enableRemark" : false,
+              "presetMaster" : true,
+              "disableInput" : true,
+              "disableInitial" : true,
+              "isCapital" : true,
+              "isEditableList" : true
+            },
+            {
+              "label": "8. Nomor Urut Rumah Tangga",
+              "dataKey": "nurt",
+              "type": 27,
+              "typeOption": 1,
+              "required" : true,
+              "enableRemark" : false,
+              "options": [
+
+              ]
+            },
+            {
+              "label": "9. Hasil Kunjungan",
+              "dataKey": "hasil_kunjungan",
+              "type": 27,
+              "typeOption": 1,
+              "required" : true,
+              "enableRemark" : false,
+              "options": [
+                {
+                  "label": "1. Berhasil",
+                  "value": "1"
+                },
+                {
+                  "label": "2. Tidak Bersedia Diwawancara",
+                  "value": "2"
+                },
+                {
+                  "label": "3. Tidak Dapat Ditemui",
+                  "value": "3"
+                }
+              ]
+            },
+            {
+              "label": "10. Nama PCL",
+              "dataKey": "pcl",
+              "type": 27,
+              "typeOption": 1,
+              "required" : true,
+              "enableRemark" : false,
+              "options": [
+
+              ]
+            },
+            {
+              "label" : "11. Nama PML",
+              "type" : 25,
+              "dataKey" : "pml",
+              "required" : true,
+              "tabular" : false,
+              "encrypted" : false,
+              "enableRemark" : false,
+              "presetMaster" : true,
+              "disableInput" : true,
+              "disableInitial" : false,
+              "isCapital" : true,
+              "isEditableList" : true
+            }
+          ]
+        ]
+      },
+      {
+        "label": "BLOK II",
+        "dataKey": "blok2",
+        "description": "KETERANGAN ANGGOTA RUMAH TANGGA 15 TAHUN KE-ATAS",
+        "type": 1,"enableCondition": "getValue('nurt') != 'null'",
+        "componentEnable": ["nurt"],
+        "components": [
+          [
+            {
+              "label": "<div class=\"text-center border-2 p-4 rounded-full\" style=\"backgrond-color: #FF0000\"><b>II. KETERANGAN ANGGOTA RUMAH TANGGA 15 TAHUN KE-ATAS</b></div>",
+              "dataKey": "title_blok2",
+              "type": 3
+            },
+            {
+              "label" : "1. Jumlah Anggota Rumah Tangga berumur 15 Tahun Ke-Atas",
+              "type" : 28,
+              "dataKey" : "jml_art",
+              "required" : true,
+              "tabular" : false,
+              "encrypted" : false,
+              "enableRemark" : false,
+              "disableInput" : false,
+              "disableInitial" : false,
+              "isEditableList" : true
+            },
+            {
+              "label": "Anggota Rumah Tangga",
+              "dataKey": "anggotakeluarganested",
+              "description": "Anggota Rumah Tangga",
+              "type": 2,
+              "sourceQuestion": "jml_art",
+              "components": [
+                [
+                  {
+                    "label" : "Nama <b>Anggota Rumah Tangga</b>",
+                    "type" : 25,
+                    "dataKey" : "nama_art",
+                    "required" : true,
+                    "tabular" : false,
+                    "encrypted" : false,
+                    "enableRemark" : false,
+                    "presetMaster" : true,
+                    "disableInput" : false,
+                    "disableInitial" : false,
+                    "isCapital" : true,
+                    "isEditable" : false,
+                    "isEditableList" : true
+                  },
+                  {
+                    "label": "Umur:",
+                    "dataKey": "umur",
+                    "type" : 28,
+                    "required" : true,
+                    "tabular" : false,
+                    "encrypted" : false,
+                    "enableRemark" : false,
+                    "disableInput" : false,
+                    "disableInitial" : false,
+                    "isEditableList" : true
+                  },
+                  {
+                    "label": "r6a. Apakah pendidikan tertinggi yang (NAMA) tamatkan?",
+                    "dataKey": "r6a",
+                    "type" : 28,
+                    "required" : true,
+                    "tabular" : false,
+                    "encrypted" : false,
+                    "enableRemark" : false,
+                    "disableInput" : false,
+                    "disableInitial" : false,
+                    "isEditableList" : true
+                  },
+                  {
+                    "label": "r8a. Apakah (NAMA) mengalami kesulitan/gangguan penglihatan?",
+                    "dataKey": "r8a",
+                    "type" : 28,
+                    "required" : true,
+                    "tabular" : false,
+                    "encrypted" : false,
+                    "enableRemark" : false,
+                    "disableInput" : false,
+                    "disableInitial" : false,
+                    "isEditableList" : true
+                  },
+                  {
+                    "label": "r8b. Apakah (NAMA) mengalami kesulitan/gangguan pendengaran?",
+                    "dataKey": "r8b",
+                    "type" : 28,
+                    "required" : true,
+                    "tabular" : false,
+                    "encrypted" : false,
+                    "enableRemark" : false,
+                    "disableInput" : false,
+                    "disableInitial" : false,
+                    "isEditableList" : true
+                  },
+                  {
+                    "label": "r8c. Apakah (NAMA) mengalami kesulitan/gangguan berjalan atau naik tangga?",
+                    "dataKey": "r8c",
+                    "type" : 28,
+                    "required" : true,
+                    "tabular" : false,
+                    "encrypted" : false,
+                    "enableRemark" : false,
+                    "disableInput" : false,
+                    "disableInitial" : false,
+                    "isEditableList" : true
+                  },
+                  {
+                    "label": "r8d. Apakah (NAMA) mengalami kesulitan/gangguan menggunakan/menggerakan tangan/jari?",
+                    "dataKey": "r8d",
+                    "type" : 28,
+                    "required" : true,
+                    "tabular" : false,
+                    "encrypted" : false,
+                    "enableRemark" : false,
+                    "disableInput" : false,
+                    "disableInitial" : false,
+                    "isEditableList" : true
+                  },
+                  {
+                    "label": "r8e. Apakah (NAMA) mengalami kesulitan/gangguan dalam berbicara dan/atau memahami/berkomunikasi dengan orang lain?",
+                    "dataKey": "r8e",
+                    "type" : 28,
+                    "required" : true,
+                    "tabular" : false,
+                    "encrypted" : false,
+                    "enableRemark" : false,
+                    "disableInput" : false,
+                    "disableInitial" : false,
+                    "isEditableList" : true
+                  },
+                  {
+                    "label": "r8f. Apakah (NAMA) mengalami kesulitan/gangguan lainnya?",
+                    "dataKey": "r8f",
+                    "type" : 28,
+                    "required" : true,
+                    "tabular" : false,
+                    "encrypted" : false,
+                    "enableRemark" : false,
+                    "disableInput" : false,
+                    "disableInitial" : false,
+                    "isEditableList" : true
+                  },
+                  {
+                    "label": "r10a. Dalam seminggu terakhir, apakah (NAMA) bekerja paling sedikit satu jam?",
+                    "dataKey": "r10a",
+                    "type" : 28,
+                    "required" : true,
+                    "tabular" : false,
+                    "encrypted" : false,
+                    "enableRemark" : false,
+                    "disableInput" : false,
+                    "disableInitial" : false,
+                    "isEditableList" : true
+                  },
+                  {
+                    "label": "r10b. Dalam seminggu terakhir, apakah (NAMA) melakukan kegiatan untuk memperoleh penghasilan/pendapatan/ uang?",
+                    "dataKey": "r10b",
+                    "type" : 28,
+                    "tabular" : false,
+                    "encrypted" : false,
+                    "enableRemark" : false,
+                    "disableInput" : false,
+                    "disableInitial" : false,
+                    "isEditableList" : true,
+                    "enableCondition": "Number(getValue('r10a@$ROW$')) == 2",
+                    "componentEnable": ["r10a@$ROW$"]
+                  },
+                  {
+                    "label": "r10c. Dalam seminggu terakhir, apakah (NAMA) membantu kegiatan usaha atau pekerjaan keluarga/orang lain?",
+                    "dataKey": "r10c",
+                    "type" : 28,
+                    "tabular" : false,
+                    "encrypted" : false,
+                    "enableRemark" : false,
+                    "disableInput" : false,
+                    "disableInitial" : false,
+                    "isEditableList" : true,
+                    "enableCondition": "Number(getValue('r10a@$ROW$')) == 2 && Number(getValue('r10b@$ROW$')) == 2",
+                    "componentEnable": ["r10a@$ROW$", "r10b@$ROW$"]
+                  },
+                  {
+                    "label": "r11. Apakah (NAMA) sebenarnya memiliki pekerjaan/kegiatan usaha, tetapi seminggu terakhir sedang tidak bekerja/ tidak menjalankan usaha tersebut?",
+                    "dataKey": "r11",
+                    "type" : 28,
+                    "tabular" : false,
+                    "encrypted" : false,
+                    "enableRemark" : false,
+                    "disableInput" : false,
+                    "disableInitial" : false,
+                    "isEditableList" : true,
+                    "enableCondition": "Number(getValue('r10a@$ROW$')) == 2 && Number(getValue('r10b@$ROW$')) == 2 && Number(getValue('r10c@$ROW$')) == 2",
+                    "componentEnable": ["r10a@$ROW$", "r10b@$ROW$", "r10c@$ROW$"]
+                  },
+                  {
+                    "label" : "Jika r10a/r10b/r10c/r11 kode 1 tapi r8a/r8c/r8e ada yang kode 1 atau r8b/r8d/r8f ada yang kode 5, hasil konfirmasi:",
+                    "type" : 25,
+                    "dataKey" : "konfirmasir11",
+                    "tabular" : false,
+                    "encrypted" : false,
+                    "enableRemark" : false,
+                    "presetMaster" : true,
+                    "disableInput" : false,
+                    "disableInitial" : false,
+                    "isCapital" : true,
+                    "isEditable" : false,
+                    "isEditableList" : true,
+                    "enableCondition": "let a = getValue('r10a@$ROW$')\n let ab = getValue('r10b@$ROW$')\n let ac = getValue('r10c@$ROW$')\n let ad = getValue('r11@$ROW$')\n let b = getValue('r8a@$ROW$') \n let c = getValue('r8b@$ROW$') \n let d = getValue('r8c@$ROW$')\n let e = getValue('r8d@$ROW$') \n let f = getValue('r8e@$ROW$') \n let g = getValue('r8f@$ROW$') \n let arr = [a,ab,ac,ad] \n arr.includes(1) && ( b == 1 || c == 5 || d == 1 || e==5 || f==1 || g==5 )",
+                    "componentEnable": ["r10a@$ROW$", "r8b@$ROW$", "r10c@$ROW$", "r11@$ROW$","r8a@$ROW$", "r8b@$ROW$", "r8c@$ROW$", "r8d@$ROW$", "r8e@$ROW$", "r8f@$ROW$"]
+                  },
+                  {
+                    "label" : "r13a. Apa yang dikerjakan (NAMA) di tempat kerja?",
+                    "type" : 25,
+                    "dataKey" : "r13a",
+                    "tabular" : false,
+                    "encrypted" : false,
+                    "enableRemark" : false,
+                    "presetMaster" : true,
+                    "disableInput" : false,
+                    "disableInitial" : false,
+                    "isCapital" : true,
+                    "isEditable" : false,
+                    "isEditableList" : true,
+                    "enableCondition": "Number(getValue('r10a@$ROW$')) == 1 || Number(getValue('r10b@$ROW$')) == 1 || Number(getValue('r10c@$ROW$')) == 1 || Number(getValue('r11@$ROW$')) == 1",
+                    "componentEnable": ["r10a@$ROW$", "r10b@$ROW$", "r10c@$ROW$", "r11@$ROW$"]
+                  },
+                  {
+                    "label" : "r13b. Apa yang diproduksi/dihasilkan/dijual/dilayani dari pekerjaan/kegiatan usaha (NAMA)?",
+                    "type" : 25,
+                    "dataKey" : "r13b",
+                    "tabular" : false,
+                    "encrypted" : false,
+                    "enableRemark" : false,
+                    "presetMaster" : true,
+                    "disableInput" : false,
+                    "disableInitial" : false,
+                    "isCapital" : true,
+                    "isEditable" : false,
+                    "isEditableList" : true,
+                    "enableCondition": "Number(getValue('r10a@$ROW$')) == 1 || Number(getValue('r10b@$ROW$')) == 1 || Number(getValue('r10c@$ROW$')) == 1 || Number(getValue('r11@$ROW$')) == 1",
+                    "componentEnable": ["r10a@$ROW$", "r10b@$ROW$", "r10c@$ROW$", "r11@$ROW$"]
+                  },
+                  {
+                    "label" : "r13c. Bergerak di bidang apakah usaha/perusahaan/kantor tempat (NAMA) bekerja?",
+                    "type" : 25,
+                    "dataKey" : "r13c",
+                    "tabular" : false,
+                    "encrypted" : false,
+                    "enableRemark" : false,
+                    "presetMaster" : true,
+                    "disableInput" : false,
+                    "disableInitial" : false,
+                    "isCapital" : true,
+                    "isEditable" : false,
+                    "isEditableList" : true,
+                    "enableCondition": "Number(getValue('r10a@$ROW$')) == 1 || Number(getValue('r10b@$ROW$')) == 1 || Number(getValue('r10c@$ROW$')) == 1 || Number(getValue('r11@$ROW$')) == 1",
+                    "componentEnable": ["r10a@$ROW$", "r10b@$ROW$", "r10c@$ROW$", "r11@$ROW$"]
+                  },
+                  {
+                    "label": "r14a. Apakah status pekerjaan utama (NAMA)?",
+                    "dataKey": "r14a",
+                    "type" : 28,
+                    "tabular" : false,
+                    "encrypted" : false,
+                    "enableRemark" : false,
+                    "disableInput" : false,
+                    "disableInitial" : false,
+                    "isEditableList" : true,
+                    "enableCondition": "Number(getValue('r10a@$ROW$')) == 1 || Number(getValue('r10b@$ROW$')) == 1 || Number(getValue('r10c@$ROW$')) == 1 || Number(getValue('r11@$ROW$')) == 1",
+                    "componentEnable": ["r10a@$ROW$", "r10b@$ROW$", "r10c@$ROW$", "r11@$ROW$"]
+                  },
+                  {
+                    "label": "r15a. Kode KBLI",
+                    "dataKey": "kbli",
+                    "type" : 24,
+                    "maskingFormat": "99999",
+                    "tabular" : false,
+                    "encrypted" : false,
+                    "enableRemark" : false,
+                    "disableInput" : false,
+                    "disableInitial" : false,
+                    "isEditableList" : true,
+                    "enableCondition": "Number(getValue('r10a@$ROW$')) == 1 || Number(getValue('r10b@$ROW$')) == 1 || Number(getValue('r10c@$ROW$')) == 1 || Number(getValue('r11@$ROW$')) == 1",
+                    "componentEnable": ["r10a@$ROW$", "r10b@$ROW$", "r10c@$ROW$", "r11@$ROW$"]
+                  },
+                  {
+                    "label": "r15b. Kode KBJI",
+                    "dataKey": "kbji",
+                    "type" : 24,
+                    "maskingFormat": "9999",
+                    "tabular" : false,
+                    "encrypted" : false,
+                    "enableRemark" : false,
+                    "disableInput" : false,
+                    "disableInitial" : false,
+                    "isEditableList" : true,
+                    "enableCondition": "Number(getValue('r10a@$ROW$')) == 1 || Number(getValue('r10b@$ROW$')) == 1 || Number(getValue('r10c@$ROW$')) == 1 || Number(getValue('r11@$ROW$')) == 1",
+                    "componentEnable": ["r10a@$ROW$", "r10b@$ROW$", "r10c@$ROW$", "r11@$ROW$"]
+                  },
+                  {
+                    "label": "r17a. Dalam seminggu terakhir, di bidang apakah pekerjaan utama (NAMA)?",
+                    "dataKey": "r17a",
+                    "type" : 28,
+                    "required" : true,
+                    "tabular" : false,
+                    "encrypted" : false,
+                    "enableRemark" : false,
+                    "disableInput" : false,
+                    "disableInitial" : false,
+                    "isEditableList" : true,
+                    "enableCondition": "Number(getValue('r10a@$ROW$')) == 1 || Number(getValue('r10b@$ROW$')) == 1 || Number(getValue('r10c@$ROW$')) == 1 || Number(getValue('r11@$ROW$')) == 1",
+                    "componentEnable": ["r10a@$ROW$", "r10b@$ROW$", "r10c@$ROW$", "r11@$ROW$"]
+                  },
+                  {
+                    "label": "r17b. Apakah barang/produk yang dihasilkan dari pekerjaan utama digunakan untuk:",
+                    "dataKey": "r17b",
+                    "type" : 28,
+                    "required" : true,
+                    "tabular" : false,
+                    "encrypted" : false,
+                    "enableRemark" : false,
+                    "disableInput" : false,
+                    "disableInitial" : false,
+                    "isEditableList" : true,
+                    "enableCondition": "Number(getValue('r17a@$ROW$')) > 0 && Number(getValue('r17a@$ROW$')) < 5 && (Number(getValue('r10a@$ROW$')) == 1 || Number(getValue('r10b@$ROW$')) == 1 || Number(getValue('r10c@$ROW$')) == 1 || Number(getValue('r11@$ROW$')))",
+                    "componentEnable": ["r17a@$ROW$", "r17a@$ROW$", "r10a@$ROW$", "r10b@$ROW$", "r10c@$ROW$", "r11@$ROW$"]
+                  },
+                  {
+                    "label": "r26a. Apakah (NAMA) memiliki perjanjian/kontrak kerja/surat keputusan?",
+                    "dataKey": "r26a",
+                    "type" : 28,
+                    "required" : false,
+                    "tabular" : false,
+                    "encrypted" : false,
+                    "enableRemark" : false,
+                    "disableInput" : false,
+                    "disableInitial" : false,
+                    "isEditableList" : true,
+                    "enableCondition": "Number(getValue('r14a@$ROW$')) == '4'",
+                    "componentEnable": ["r14a@$ROW$", "r10a@$ROW$", "r10b@$ROW$", "r10c@$ROW$", "r11@$ROW$"]
+                  },
+                  {
+                    "label" : "r38a. Dalam seminggu terakhir, apakah (NAMA) mencari pekerjaan?",
+                    "type" : 28,
+                    "dataKey" : "r38a",
+                    "required" : true,
+                    "tabular" : false,
+                    "encrypted" : false,
+                    "enableRemark" : false,
+                    "presetMaster" : true,
+                    "disableInput" : false,
+                    "disableInitial" : false,
+                    "isCapital" : true,
+                    "isEditable" : false,
+                    "isEditableList" : true
+                  },
+                  {
+                    "label" : "r38b. Dalam seminggu terakhir, apakah (NAMA) sedang mempersiapkan suatu kegiatan usaha yang baru?",
+                    "type" : 28,
+                    "dataKey" : "r38b",
+                    "required" : true,
+                    "tabular" : false,
+                    "encrypted" : false,
+                    "enableRemark" : false,
+                    "presetMaster" : true,
+                    "disableInput" : false,
+                    "disableInitial" : false,
+                    "isCapital" : true,
+                    "isEditable" : false,
+                    "isEditableList" : true
+                  },
+                  {
+                    "label" : "Jika r38a / r38b = 1 dan Umur anggota rumah tangga >= 50 tahun, hasil konfirmasi :",
+                    "type" : 25,
+                    "dataKey" : "konfirmasir38",
+                    "tabular" : false,
+                    "encrypted" : false,
+                    "enableRemark" : false,
+                    "presetMaster" : true,
+                    "disableInput" : false,
+                    "disableInitial" : false,
+                    "isCapital" : true,
+                    "isEditable" : false,
+                    "isEditableList" : true,
+                    "enableCondition": "Number(getValue('umur@$ROW$')) >= 50 && (Number(getValue('r38a@$ROW$')) == 1 || Number(getValue('r38b@$ROW$')) == 1)",
+                    "componentEnable": ["r38a@$ROW$", "r38b@$ROW$", "umur@$ROW$"]
+                  },
+                  {
+                    "label" : "r42a. Dalam seminggu terakhir, apakah alasan utama (NAMA) tidak mencari pekerjaan dan tidak mempersiapkan usaha?",
+                    "type" : 28,
+                    "dataKey" : "r42a",
+                    "tabular" : false,
+                    "encrypted" : false,
+                    "enableRemark" : false,
+                    "presetMaster" : true,
+                    "disableInput" : false,
+                    "disableInitial" : false,
+                    "isCapital" : true,
+                    "isEditable" : false,
+                    "isEditableList" : true,
+                    "enableCondition": "Number(getValue('r38a@$ROW$')) == 2 && Number(getValue('r38b@$ROW$')) == 2",
+                    "componentEnable": ["r38a@$ROW$", "r38b@$ROW$", "umur@$ROW$"]
+                  },
+                  {
+                    "label" : "Jika r42a = 3, hasil konfirmasi :",
+                    "type" : 25,
+                    "dataKey" : "konfirmasi",
+                    "tabular" : false,
+                    "encrypted" : false,
+                    "enableRemark" : false,
+                    "presetMaster" : true,
+                    "disableInput" : false,
+                    "disableInitial" : false,
+                    "isCapital" : true,
+                    "isEditable" : false,
+                    "isEditableList" : true,
+                    "enableCondition": "Number(getValue('r42a@$ROW$')) == 3",
+                    "componentEnable": ["r42a@$ROW$"]
+                  },
+                  {
+                    "label" : "r45a. Kapan (NAMA) memperoleh pekerjaan/memulai usaha setelah lulus dari pendidikan tertinggi yang ditamatkan?",
+                    "type" : 28,
+                    "dataKey" : "r45a",
+                    "required" : true,
+                    "tabular" : false,
+                    "encrypted" : false,
+                    "enableRemark" : false,
+                    "presetMaster" : true,
+                    "disableInput" : false,
+                    "disableInitial" : false,
+                    "isCapital" : true,
+                    "isEditable" : false,
+                    "isEditableList" : true
+                  },
+                  {
+                    "label" : "r50d. Dari kegiatan bersekolah, mengurus rumah tangga, dan kegiatan lainnya, kegiatan mana yang menggunakan waktu terbanyak dalam seminggu terakhir?",
+                    "type" : 28,
+                    "dataKey" : "r50d",
+                    "required" : true,
+                    "tabular" : false,
+                    "encrypted" : false,
+                    "enableRemark" : false,
+                    "presetMaster" : true,
+                    "disableInput" : false,
+                    "disableInitial" : false,
+                    "isCapital" : true,
+                    "isEditable" : false,
+                    "isEditableList" : true
+                  }
+                ]
+              ]
+            }
+          ]
+        ]
+      }
+    ]
+  ]
+}

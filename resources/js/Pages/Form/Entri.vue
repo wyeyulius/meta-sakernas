@@ -132,13 +132,13 @@
 import { Head } from '@inertiajs/vue3';
 import { FormGear } from "form-gear"
 import "form-gear/dist/style.css"
-import reference from "../Data/reference"
-import template from "../Data/template"
-import preset from "../Data/preset.json"
-import response from "../Data/response.json"
-import validation from "../Data/validation.json"
-import media from "../Data/media.json"
-import remark from "../Data/remark.json"
+import reference from "../FormGear/Februari/reference"
+import template from "../FormGear/Februari/template"
+import preset from "../FormGear/Februari/preset.json"
+import response from "../FormGear/Februari/response.json"
+import validation from "../FormGear/Februari/validation.json"
+import media from "../FormGear/Februari/media.json"
+import remark from "../FormGear/Februari/remark.json"
 import { computed, toRaw } from 'vue'
 import { usePage } from '@inertiajs/vue3'
 import { router } from '@inertiajs/vue3'

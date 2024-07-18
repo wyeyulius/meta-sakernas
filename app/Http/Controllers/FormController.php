@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Response;
+// use App\Models\Response;
+// use App\Models\AgustusResponse;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Models\Region;
@@ -22,7 +23,7 @@ class FormController extends Controller
             'id' => $kabupaten->kabupaten,
             'nama' => '['.$kabupaten->kabupaten.'] '.$kabupaten->nama_kabupaten
         ]);
-        $data = DB::table('responses')
+        $data = DB::table(getResponseTable())
                     ->select('region_id','nurt', 'docState', 'submit_status', 'updated_at', DB::raw('count(*) as jumlah_art'))
                     ->groupByRaw('region_id, nurt, docState, submit_status, updated_at')
                     ->where('region_id', '=', $region_id)
@@ -57,7 +58,7 @@ class FormController extends Controller
         if ($kab != auth()->user()->kabupaten) {
             return inertia_location('/');
         }
-        $res = DB::table('responses')
+        $res = DB::table(getResponseTable())
                     ->select('nurt as label', 'nurt as value')
                     ->where('region_id','=', $region_id)
                     ->get()->toArray();
@@ -153,7 +154,7 @@ class FormController extends Controller
         ]);
 
 
-        return Inertia::render('Form/Entri', [
+        return Inertia::render(getViewPath(), [
             "prefill" => $prefill,
             "region_id" => $region_id,
             'pcl' => $pcl,
@@ -168,15 +169,17 @@ class FormController extends Controller
     public function store(Request $request, string $region_id, $id = null)
     {
         try {
+            $ResponseModel = getResponseModel();
             $req = $request->all();
             $answers = $req['answers'];
             $jumlah_art = array_column($answers, 'answer', 'dataKey')['jml_art'] ?? null;
     
             if (!$id) {
                 for ($i = 0; $i < $jumlah_art; $i++) {
-                    $response = new Response();
+                    $response = new $ResponseModel;
                     $response->region_id = $region_id;
                     $response->nurt = array_column($answers, 'answer', 'dataKey')['nurt'][0]['value'] ?? null;
+                    $response->hasil_kunjungan = array_column($answers, 'answer', 'dataKey')['hasil_kunjungan'][0]['value'] ?? null;
                     $response->pcl = array_column($answers, 'answer', 'dataKey')['pcl'][0]['value'] ?? null;
                     $response->pml = array_column($answers, 'answer', 'dataKey')['pml'] ?? null;
                     $response->no_art = $i + 1;
@@ -201,20 +204,20 @@ class FormController extends Controller
                 ], 201);
             } else {
                 $pml = auth()->user()->name;
-                // Response::where('region_id', $region_id)->where('pml', '=', $pml)->where('nurt', $id)->delete();
+                // $ResponseModel::where('region_id', $region_id)->where('pml', '=', $pml)->where('nurt', $id)->delete();
                     
                 $req = $request->all();
                 $answers = $req['answers'];
                 $jumlah_art = array_column($answers, 'answer', 'dataKey')['jml_art'] ?? null;
                 $nurt = array_column($answers, 'answer', 'dataKey')['nurt'][0]['value'] ?? null;
-                Response::where('region_id', $region_id)
+                $ResponseModel::where('region_id', $region_id)
                     ->where('pml', $pml)
                     ->where('nurt', $id)
                     ->where('no_art', '>', $jumlah_art)
                     ->delete();
                     
                 for ($i = 0; $i < $jumlah_art; $i++) {
-                    $response = Response::firstOrNew([
+                    $response = $ResponseModel::firstOrNew([
                         'region_id' => $region_id, 
                         'pml' => $pml, 
                         'nurt' => $id, 
@@ -222,6 +225,7 @@ class FormController extends Controller
                     ]);
                     $response->region_id = $region_id;
                     $response->nurt = $nurt;
+                    $response->hasil_kunjungan = array_column($answers, 'answer', 'dataKey')['hasil_kunjungan'][0]['value'] ?? null;
                     $response->pcl = array_column($answers, 'answer', 'dataKey')['pcl'][0]['value'] ?? null;
                     $response->pml = array_column($answers, 'answer', 'dataKey')['pml'] ?? null;
                     $response->no_art = $i + 1;
@@ -251,14 +255,16 @@ class FormController extends Controller
     }
     public function submit(Request $request, string $region_id)
     {
+        $ResponseModel = getResponseModel();
         $req = $request->all();
         $answers = $req['answers'];
         $jumlah_art = array_column($answers, 'answer', 'dataKey')['jml_art'] ?? null;
 
         for($i = 0; $i<$jumlah_art; $i++){
-            $response = new Response();
+            $response = new $ResponseModel;
             $response->region_id = $region_id;
             $response->nurt = array_column($answers, 'answer', 'dataKey')['nurt'][0]['value'] ?? null;
+            $response->hasil_kunjungan = array_column($answers, 'answer', 'dataKey')['hasil_kunjungan'][0]['value'] ?? null;
             $response->pcl = array_column($answers, 'answer', 'dataKey')['pcl'][0]['value'] ?? null;
             $response->pml = array_column($answers, 'answer', 'dataKey')['pml'] ?? null;
             $response->no_art = $i + 1;
@@ -302,7 +308,7 @@ class FormController extends Controller
         if ($kab != auth()->user()->kabupaten) {
             return inertia_location('/');
         }
-        $res = DB::table('responses')
+        $res = DB::table(getResponseTable())
                     ->select('nurt as label', 'nurt as value')
                     ->where('region_id','=', $region_id)
                     ->where('nurt', '!=', $id)
@@ -368,7 +374,7 @@ class FormController extends Controller
                     ->get();
 
         $response = [];
-        $data = DB::table('responses')
+        $data = DB::table(getResponseTable())
                     ->where('region_id', '=', $region_id)
                     ->where('pml', '=', $pml)
                     ->where('nurt', "=", $id )
@@ -443,7 +449,7 @@ class FormController extends Controller
             ]
         ]);
 
-        return Inertia::render('Form/Entri', [
+        return Inertia::render(getViewPath(), [
             "prefill" => $prefill,
             "response" => $response,
             "region_id" => $region_id,
@@ -458,21 +464,22 @@ class FormController extends Controller
      */
     public function update(Request $request, string $region_id, string $id)
     {
+        $ResponseModel = getResponseModel();
         $pml = auth()->user()->name;
-        // Response::where('region_id', $region_id)->where('pml', '=', $pml)->where('nurt', $id)->delete();
+        // $ResponseModel::where('region_id', $region_id)->where('pml', '=', $pml)->where('nurt', $id)->delete();
             
         $req = $request->all();
         $answers = $req['answers'];
         $jumlah_art = array_column($answers, 'answer', 'dataKey')['jml_art'] ?? null;
         $nurt = array_column($answers, 'answer', 'dataKey')['nurt'][0]['value'] ?? null;
-        Response::where('region_id', $region_id)
+        $ResponseModel::where('region_id', $region_id)
             ->where('pml', $pml)
             ->where('nurt', $id)
             ->where('no_art', '>', $jumlah_art)
             ->delete();
             
         for ($i = 0; $i < $jumlah_art; $i++) {
-            $response = Response::firstOrNew([
+            $response = $ResponseModel::firstOrNew([
                 'region_id' => $region_id, 
                 'pml' => $pml, 
                 'nurt' => $id, 
@@ -480,6 +487,7 @@ class FormController extends Controller
             ]);
             $response->region_id = $region_id;
             $response->nurt = $nurt;
+            $response->hasil_kunjungan = array_column($answers, 'answer', 'dataKey')['hasil_kunjungan'][0]['value'] ?? null;
             $response->pcl = array_column($answers, 'answer', 'dataKey')['pcl'][0]['value'] ?? null;
             $response->pml = array_column($answers, 'answer', 'dataKey')['pml'] ?? null;
             $response->no_art = $i + 1;
@@ -505,8 +513,9 @@ class FormController extends Controller
      */
     public function destroy(string $region_id, string $id)
     {
+        $ResponseModel = getResponseModel();
         $pml = auth()->user()->name ;
-        Response::where('region_id', $region_id)->where('pml', '=', $pml)->where('nurt', $id)->delete();
+        $ResponseModel::where('region_id', $region_id)->where('pml', '=', $pml)->where('nurt', $id)->delete();
         return redirect()->route('form.index', ['region_id' => $region_id]);
     }
 }

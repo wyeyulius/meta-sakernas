@@ -1,0 +1,455 @@
+{
+    "description":"validation",
+    "dataKey":"meta-val",
+    "version":"0.0.1",
+    "testFunctions":[
+        {
+            "dataKey":"jml_art",
+            "componentValidation":["jml_ar"],
+            "validations": [
+                {
+                    "test":"getValue('jml_art') < 1",
+                    "message":"Jumlah Anggota Rumah Tangga minimal 1",
+                    "type":2
+                }
+            ]
+        },
+        {
+            "dataKey":"umur",
+            "componentValidation":["umur", "r37a", "r37b"],
+            "validations": [
+                {
+                    "test":"getValue('umur#'+getRowIndex(0)) < 15",
+                    "message":"Umur tidak boleh di bawah 15 Tahun",
+                    "type":2
+                },
+                {
+                    "test":"let a = getValue('r37a#'+getRowIndex(0))\n let b = getValue('r37b#'+getRowIndex(0))\n getValue('umur#'+getRowIndex(0)) >=  50 && ( a ==1 || b == 1 )",
+                    "message":"r37a atau r37b = 1 tapi umur >= 50",
+                    "type":1
+                }
+            ]
+        },
+        {
+            "dataKey":"r6a",
+            "componentValidation":["r44a", "r9a", "r9b", "r9c", "r10", "r6a"],
+            "validations": [
+                {
+                    "test":"let a = getValue('r6a#'+getRowIndex(0))\n a < 1 || a > 12",
+                    "message":"Isian hanya boleh 1 s.d 12",
+                    "type":2
+                },
+                {
+                    "test":"let a = getValue('r44a#'+getRowIndex(0))\n let b = getValue('r9a#'+getRowIndex(0)) \n let c = getValue('r9b#'+getRowIndex(0)) \n let d = getValue('r9c#'+getRowIndex(0)) \n let e = getValue('r10#'+getRowIndex(0)) \n let f = getValue('r6a#'+getRowIndex(0)) \n f == 1 && a != 2 && ( b == 1 || c == 1 || d == 1 || e == 1 )",
+                    "message":"r9a/r9b/r9c/r10 kode 1, r6a = 1, tapi r44a tidak sama dengan 2",
+                    "type":2
+                }
+            ]
+        },
+        {
+            "dataKey":"r8a",
+            "componentValidation":["r8a@$ROW$"],
+            "validations": [
+                {
+                    "test":"let a = getValue('r8a#'+getRowIndex(0))\n a < 1 || a > 4",
+                    "message":"Isian hanya boleh 1 s.d 4",
+                    "type":2
+                }
+            ]
+        },
+        {
+            "dataKey":"r8b",
+            "componentValidation":["r8b@$ROW$"],
+            "validations": [
+                {
+                    "test":"let a = getValue('r8b#'+getRowIndex(0))\n a < 5 || a > 8",
+                    "message":"Isian hanya boleh 5 s.d 8",
+                    "type":2
+                }
+            ]
+        },
+        {
+            "dataKey":"r8c",
+            "componentValidation":["r8c@$ROW$"],
+            "validations": [
+                {
+                    "test":"let a = getValue('r8c#'+getRowIndex(0))\n a < 1 || a > 4",
+                    "message":"Isian hanya boleh 1 s.d 4",
+                    "type":2
+                }
+            ]
+        },
+        {
+            "dataKey":"r8d",
+            "componentValidation":["r8d@$ROW$"],
+            "validations": [
+                {
+                    "test":"let a = getValue('r8d#'+getRowIndex(0))\n a < 5 || a > 8",
+                    "message":"Isian hanya boleh 5 s.d 8",
+                    "type":2
+                }
+            ]
+        },
+        {
+            "dataKey":"r8e",
+            "componentValidation":["r8e@$ROW$"],
+            "validations": [
+                {
+                    "test":"let a = getValue('r8e#'+getRowIndex(0))\n a < 1 || a > 4",
+                    "message":"Isian hanya boleh 1 s.d 4",
+                    "type":2
+                }
+            ]
+        },
+        {
+            "dataKey":"r8f",
+            "componentValidation":["r8f@$ROW$"],
+            "validations": [
+                {
+                    "test":"let a = getValue('r8f#'+getRowIndex(0))\n a < 5 || a > 8",
+                    "message":"Isian hanya boleh 5 s.d 8",
+                    "type":2
+                }
+            ]
+        },
+        {
+            "dataKey":"r9a",
+            "componentValidation":["konfirmasir10", "r9a", "r8a", "r8b", "r8c", "r8d", "r8e", "r8f", "r44a", "r6a"],
+            "validations": [
+                {
+                    "test":"let a = getValue('r9a#'+getRowIndex(0))\n a < 1 || a > 2",
+                    "message":"Isian hanya boleh 1 atau 2",
+                    "type":2
+                },
+                {
+                    "test":"let k = getValue('konfirmasir10#'+getRowIndex(0)) \n let a = getValue('r9a#'+getRowIndex(0))\n let b = getValue('r8a#'+getRowIndex(0)) \n let c = getValue('r8b#'+getRowIndex(0)) \n let d = getValue('r8c#'+getRowIndex(0))\n let e = getValue('r8d#'+getRowIndex(0)) \n let f = getValue('r8e#'+getRowIndex(0)) \n let g = getValue('r8f#'+getRowIndex(0)) \n k.length < 10 && a == 1 && ( b == 1 || c == 5 || d == 1 || e==5 || f==1 || g==5 )",
+                    "message":"Konfirmasi jika r9a kode 1 tapi r8a/r8c/r8e ada yang kode 1 atau r8b/r8d/r8f ada yang kode 5",
+                    "type":1
+                },
+                {
+                    "test":"let a = getValue('r44a#'+getRowIndex(0))\n let b = getValue('r9a#'+getRowIndex(0)) \n let f = getValue('r6a#'+getRowIndex(0)) \n f == 1 && a != 2 && b == 1",
+                    "message":"r9a kode 1, r6a = 1, tapi r44a tidak sama dengan 2",
+                    "type":2
+                }
+            ]
+        },
+        {
+            "dataKey":"r9b",
+            "componentValidation":["konfirmasir10", "r9b", "r8a", "r8b", "r8c", "r8d", "r8e", "r8f", "r44a", "r6a"],
+            "validations": [
+                {
+                    "test":"let a = getValue('r9b#'+getRowIndex(0))\n a < 1 || a > 2",
+                    "message":"Isian hanya boleh 1 atau 2",
+                    "type":2
+                },
+                {
+                    "test":"let k = getValue('konfirmasir10#'+getRowIndex(0)) \n let a = getValue('r9b#'+getRowIndex(0))\n let b = getValue('r8a#'+getRowIndex(0)) \n let c = getValue('r8b#'+getRowIndex(0)) \n let d = getValue('r8c#'+getRowIndex(0))\n let e = getValue('r8d#'+getRowIndex(0)) \n let f = getValue('r8e#'+getRowIndex(0)) \n let g = getValue('r8f#'+getRowIndex(0)) \n k.length < 10 && a == 1 && ( b == 1 || c == 5 || d == 1 || e==5 || f==1 || g==5 )",
+                    "message":"Konfirmasi jika r9b kode 1 tapi r8a/r8c/r8e ada yang kode 1 atau r8b/r8d/r8f ada yang kode 5",
+                    "type":1
+                },
+                {
+                    "test":"let a = getValue('r44a#'+getRowIndex(0))\n let b = getValue('r9b#'+getRowIndex(0)) \n let f = getValue('r6a#'+getRowIndex(0)) \n f == 1 && a != 2 && b == 1",
+                    "message":"r9b kode 1, r6a = 1, tapi r44a tidak sama dengan 2",
+                    "type":2
+                }
+            ]
+        },
+        {
+            "dataKey":"r9c",
+            "componentValidation":["konfirmasir10", "r9c", "r8a", "r8b", "r8c", "r8d", "r8e", "r8f", "r44a", "r6a"],
+            "validations": [
+                {
+                    "test":"let a = getValue('r9c#'+getRowIndex(0))\n a < 1 || a > 2",
+                    "message":"Isian hanya boleh 1 atau 2",
+                    "type":2
+                },
+                {
+                    "test":"let k = getValue('konfirmasir10#'+getRowIndex(0)) \n let a = getValue('r9c#'+getRowIndex(0))\n let b = getValue('r8a#'+getRowIndex(0)) \n let c = getValue('r8b#'+getRowIndex(0)) \n let d = getValue('r8c#'+getRowIndex(0))\n let e = getValue('r8d#'+getRowIndex(0)) \n let f = getValue('r8e#'+getRowIndex(0)) \n let g = getValue('r8f#'+getRowIndex(0)) \n k.length < 10 && a == 1 && ( b == 1 || c == 5 || d == 1 || e==5 || f==1 || g==5 )",
+                    "message":"Konfirmasi jika r9c kode 1 tapi r8a/r8c/r8e ada yang kode 1 atau r8b/r8d/r8f ada yang kode 5",
+                    "type":1
+                },
+                {
+                    "test":"let a = getValue('r44a#'+getRowIndex(0))\n let b = getValue('r9c#'+getRowIndex(0)) \n let f = getValue('r6a#'+getRowIndex(0)) \n f == 1 && a != 2 && b == 1",
+                    "message":"r9c kode 1, r6a = 1, tapi r44a tidak sama dengan 2",
+                    "type":2
+                }
+            ]
+        },
+        {
+            "dataKey":"r10",
+            "componentValidation":["konfirmasir10","r10","r8a", "r8b", "r8c", "r8d", "r8e", "r8f", "r44a", "r6a"],
+            "validations": [
+                {
+                    "test":"let a = getValue('r10#'+getRowIndex(0))\n a < 1 || a > 2",
+                    "message":"Isian hanya boleh 1 atau 2",
+                    "type":2
+                },
+                {
+                    "test":"let k = getValue('konfirmasir10#'+getRowIndex(0)) \n let a = getValue('r10#'+getRowIndex(0))\n let b = getValue('r8a#'+getRowIndex(0)) \n let c = getValue('r8b#'+getRowIndex(0)) \n let d = getValue('r8c#'+getRowIndex(0))\n let e = getValue('r8d#'+getRowIndex(0)) \n let f = getValue('r8e#'+getRowIndex(0)) \n let g = getValue('r8f#'+getRowIndex(0)) \n k.length < 10 && a == 1 && ( b == 1 || c == 5 || d == 1 || e==5 || f==1 || g==5 )",
+                    "message":"Konfirmasi jika r10 kode 1 tapi r8a/r8c/r8e ada yang kode 1 atau r8b/r8d/r8f ada yang kode 5",
+                    "type":1
+                },
+                {
+                    "test":"let a = getValue('r44a#'+getRowIndex(0))\n let b = getValue('r10#'+getRowIndex(0)) \n let f = getValue('r6a#'+getRowIndex(0)) \n f == 1 && a != 2 && b == 1",
+                    "message":"r10 kode 1, r6a = 1, tapi r44a tidak sama dengan 2",
+                    "type":2
+                }
+            ]
+        },
+        {
+            "dataKey":"konfirmasir10",
+            "componentValidation":["konfirmasir10","r9a","r9b","r9c","r10","r8a", "r8b", "r8c", "r8d", "r8e", "r8f", "r44a", "r6a"],
+            "validations": [
+                {
+                    "test":"let k = getValue('konfirmasir10#'+getRowIndex(0)) \n let a = getValue('r9a#'+getRowIndex(0))\n let ab = getValue('r9b#'+getRowIndex(0))\n let ac = getValue('r9c#'+getRowIndex(0))\n let ad = getValue('r10#'+getRowIndex(0))\n let b = getValue('r8a#'+getRowIndex(0)) \n let c = getValue('r8b#'+getRowIndex(0)) \n let d = getValue('r8c#'+getRowIndex(0))\n let e = getValue('r8d#'+getRowIndex(0)) \n let f = getValue('r8e#'+getRowIndex(0)) \n let g = getValue('r8f#'+getRowIndex(0)) \n let arr = [a,ab,ac,ad] \n k.length < 10 && arr.includes(1) && ( b == 1 || c == 5 || d == 1 || e==5 || f==1 || g==5 )",
+                    "message":"Konfirmasi jika r9a/r9b/r9c/r10 kode 1 tapi r8a/r8c/r8e ada yang kode 1 atau r8b/r8d/r8f ada yang kode 5",
+                    "type":1
+                }
+            ]
+        },
+        {
+            "dataKey":"r13a",
+            "componentValidation":["r13a", "kbji"],
+            "validations": [
+                {
+                    "test":"let a = getValue('r13a#'+getRowIndex(0))\n a < 1 || a > 7",
+                    "message":"Isian hanya boleh 1 s.d. 7",
+                    "type":2
+                },
+                {
+                    "test":"let a = getValue('kbji#'+getRowIndex(0))\n let b = getValue('r13a#'+getRowIndex(0)) \n  String(a).substring(0,2) == '92' && b < 4; ",
+                    "message":"KBJI Buruh Pertanian tapi Status Berusaha",
+                    "type":2
+                },
+                {
+                    "test":"let a = String(getValue('kbji#'+getRowIndex(0)))\n let b = getValue('r13a#'+getRowIndex(0)) \n  b < 4 && ['8111','9311'].includes(a); ",
+                    "message":"KBJI Pekerja/Buruh Tambang tapi Status Berusaha",
+                    "type":2
+                }
+            ]
+        },
+        {
+            "dataKey":"kbli",
+            "componentValidation":["kbli", "kbji", "r12a"],
+            "validations": [
+                {
+                    "test":"let a = getValue('kbli#'+getRowIndex(0)).length\n a < 5",
+                    "message":"KBLI harus 5 digit",
+                    "type":2
+                },
+                {
+                    "test":"let a = getValue('kbji#'+getRowIndex(0))\n let b = String(getValue('kbli#'+getRowIndex(0))).substring(0,2) \n  String(a).substring(0,2) == '92' && !['01','02','03'].includes(b) ",
+                    "message":"KBJI Buruh Pertanian tapi Lapus Non Pertanian",
+                    "type":2
+                },
+                {
+                    "test":"let a = String(getValue('kbji#'+getRowIndex(0)))\n let b = String(getValue('kbli#'+getRowIndex(0))).substring(0,2) \n !['05', '06', '07', '08','09'].includes(b) && ['8111','9311'].includes(a); ",
+                    "message":"KBJI Pekerja/Buruh Tambang tapi Lapus Non Pertambangan",
+                    "type":2
+                }
+            ]
+        },
+        {
+            "dataKey":"kbji",
+            "componentValidation":["kbji","r16a", "r16b", "r13a", "kbli"],
+            "validations": [
+                {
+                    "test":"let a = getValue('kbji#'+getRowIndex(0)).length\n a < 4; ",
+                    "message":"KBJI harus 4 digit",
+                    "type":2
+                },
+                {
+                    "test":"let a = getValue('kbji#'+getRowIndex(0))\n let b = getValue('r16b#'+getRowIndex(0)) \n let c = getValue('r16a#'+getRowIndex(0)) \n String(a).substring(0, 2) == '63' && b < 3 ; ",
+                    "message":"KBJI Subsisten tapi tidak digunakan sendiri",
+                    "type":2
+                },
+                {
+                    "test":"let a = getValue('kbji#'+getRowIndex(0))\n let b = getValue('r16b#'+getRowIndex(0)) \n let c = getValue('r16a#'+getRowIndex(0)) \n String(a).substring(0, 2) != '63' && b > 2; ",
+                    "message":"Digunakan sendiri tetapi KBJI bukan Subsisten",
+                    "type":2
+                },
+                {
+                    "test":"let a = getValue('kbji#'+getRowIndex(0))\n let b = getValue('r13a#'+getRowIndex(0)) \n  String(a).substring(0,2) == '92' && b < 4; ",
+                    "message":"KBJI Buruh Pertanian tapi Status Berusaha",
+                    "type":2
+                },
+                {
+                    "test":"let a = getValue('kbji#'+getRowIndex(0))\n let b = String(getValue('kbli#'+getRowIndex(0))).substring(0,2) \n  String(a).substring(0,2) == '92' && !['01','02','03'].includes(b) ",
+                    "message":"KBJI Buruh Pertanian tapi Lapus Non Pertanian",
+                    "type":2
+                },
+                {
+                    "test":"let a = String(getValue('kbji#'+getRowIndex(0)))\n let b = getValue('r13a#'+getRowIndex(0)) \n  b < 4 && ['8111','9311'].includes(a); ",
+                    "message":"KBJI Pekerja/Buruh Tambang tapi Status Berusaha",
+                    "type":2
+                },
+                {
+                    "test":"let a = String(getValue('kbji#'+getRowIndex(0)))\n let b = String(getValue('kbli#'+getRowIndex(0))).substring(0,2) \n !['05', '06', '07', '08','09'].includes(b) && ['8111','9311'].includes(a); ",
+                    "message":"KBJI Pekerja/Buruh Tambang tapi Lapus Non Pertambangan",
+                    "type":2
+                }
+            ]
+        },
+        {
+            "dataKey":"r16a",
+            "componentValidation":["r16a", "r16b" ,"r9a", "r9b", "r9c", "r10"],
+            "validations": [
+                {
+                    "test":"let a = getValue('r16a#'+getRowIndex(0))\n a < 1 || a > 5",
+                    "message":"Isian hanya boleh 1 s.d. 5",
+                    "type":2
+                },
+                {
+                    "test":"let b = String(getValue('r16a#'+getRowIndex(0))) \n let c = String(getValue('r16b#'+getRowIndex(0))) \n let d = getValue('r9a#'+getRowIndex(0)) \n let e = getValue('r9b#'+getRowIndex(0)) \n let f = getValue('r9c#'+getRowIndex(0)) \n let g = getValue('r10#'+getRowIndex(0)) \n !['1', '5'].includes(b) && (d == 1 || e == 1 || f == 1 || g == 1) && ['3','4'].includes(c) ; ",
+                    "message":"r16a = 2/3/4, r16b = 3/4, tapi r9a/r9b/r9c/r10 kode 1",
+                    "type":2
+                }
+            ]
+        },
+        {
+            "dataKey":"r16b",
+            "componentValidation":["kbji","r16a","r16b","r9a", "r9b", "r9c", "r10"],
+            "validations": [
+                {
+                    "test":"let a = getValue('r16b#'+getRowIndex(0))\n a < 1 || a > 4",
+                    "message":"Isian hanya boleh 1 s.d. 5",
+                    "type":2
+                },
+                {
+                    "test":"let a = getValue('kbji#'+getRowIndex(0))\n let b = getValue('r16b#'+getRowIndex(0)) \n String(a).substring(0, 2) == '63' && b < 3 ; ",
+                    "message":"KBJI Subsisten tapi tidak digunakan sendiri",
+                    "type":2
+                },
+                {
+                    "test":"let a = getValue('kbji#'+getRowIndex(0))\n let b = getValue('r16b#'+getRowIndex(0)) \n  String(a).substring(0, 2) != '63' && b > 2 ; ",
+                    "message":"Digunakan sendiri tetapi KBJI bukan Subsisten",
+                    "type":2
+                },
+                {
+                    "test":"let b = String(getValue('r16a#'+getRowIndex(0))) \n let c = String(getValue('r16b#'+getRowIndex(0))) \n let d = getValue('r9a#'+getRowIndex(0)) \n let e = getValue('r9b#'+getRowIndex(0)) \n let f = getValue('r9c#'+getRowIndex(0)) \n let g = getValue('r10#'+getRowIndex(0)) \n !['1', '5'].includes(b) && (d == 1 || e == 1 || f == 1 || g == 1) && ['3','4'].includes(c) ; ",
+                    "message":"r16a = 2/3/4, r16b = 3/4, tapi r9a/r9b/r9c/r10 kode 1",
+                    "type":2
+                }
+            ]
+        },
+        {
+            "dataKey":"r25a",
+            "componentValidation":["r25a", "kbji"],
+            "validations": [
+                {
+                    "test":"let a = getValue('r25a#'+getRowIndex(0))\n a != '' && (a < 1 || a > 5)",
+                    "message":"Isian hanya boleh 1 s.d. 5",
+                    "type":2
+                },
+                {
+                    "test":"let a = String(getValue('kbji#'+getRowIndex(0))).substring(0,2)\nlet b = Number(getValue('r25a#'+getRowIndex(0)))\n b > 1 && ['01','02','03'].includes(a) ",
+                    "message":"KBJI TNI/Polri tapi tidak PKWTT",
+                    "type":2
+                }
+            ]
+        },
+        {
+            "dataKey":"r37a",
+            "componentValidation":["r37a", "umur", "konfirmasi"],
+            "validations": [
+                {
+                    "test":"let a = getValue('r37a#'+getRowIndex(0))\n a < 1 || a > 2",
+                    "message":"Isian hanya boleh 1 atau 2",
+                    "type":2
+                },
+                {
+                    "test":"let a = getValue('r37a#'+getRowIndex(0)) \n let b = getValue('konfirmasir37#'+getRowIndex(0)) \n a == 1 && getValue('umur#'+getRowIndex(0)) >= 50 && b.length < 10",
+                    "message":"r37a = 1 tapi umur >= 50",
+                    "type":1
+                }
+            ]
+        },
+        {
+            "dataKey":"r37b",
+            "componentValidation":["r37b", "umur", "konfirmasi"],
+            "validations": [
+                {
+                    "test":"let a = getValue('r37b#'+getRowIndex(0))\n a < 1 || a > 2",
+                    "message":"Isian hanya boleh 1 atau 2",
+                    "type":2
+                },
+                {
+                    "test":"let a = getValue('r37b#'+getRowIndex(0)) \n let b = getValue('konfirmasir37#'+getRowIndex(0)) \n a == 1 && getValue('umur#'+getRowIndex(0)) >= 50 && b.length < 10",
+                    "message":"r37b = 1 tapi umur >= 50",
+                    "type":1
+                }
+            ]
+        },
+        {
+            "dataKey":"konfirmasir37",
+            "componentValidation":["r37a","r37b", "konfirmasir37"],
+            "validations": [
+                {
+                    "test":"let a = getValue('r37a#'+getRowIndex(0))\n let b = getValue('konfirmasir37#'+getRowIndex(0)) \n a == 1 && getValue('umur#'+getRowIndex(0)) >=  50 && b.length < 10",
+                    "message":"Konfirmasi jika r37a = 1 tapi umur >= 50",
+                    "type":1
+                },
+                {
+                    "test":"let a = getValue('r37b#'+getRowIndex(0))\n let b = getValue('konfirmasir37#'+getRowIndex(0)) \n a == 1 && getValue('umur#'+getRowIndex(0)) >=  50 && b.length < 10",
+                    "message":"Konfirmasi jika r37b = 1 tapi umur >= 50",
+                    "type":1
+                }
+            ]
+        },
+        {
+            "dataKey":"r41a",
+            "componentValidation":["r41a", "konfirmasi"],
+            "validations": [
+                {
+                    "test":"let a = getValue('r41a#'+getRowIndex(0))\n a < 1 || a > 8",
+                    "message":"Isian hanya boleh 1 s.d. 8",
+                    "type":2
+                },
+                {
+                    "test":"let a = getValue('konfirmasi#'+getRowIndex(0))\n let b = getValue('r41a#'+getRowIndex(0))\n b == 3 && a.length < 10;",
+                    "message":"Harus ada konfirmasi jika r41a berkode 3, ketikan hasil konfirmasi minimal 10 huruf",
+                    "type":1
+                }
+            ]
+        },
+        {
+            "dataKey":"konfirmasi",
+            "componentValidation":["konfirmasi", "r41a"],
+            "validations": [
+                {
+                    "test":"let a = getValue('konfirmasi#'+getRowIndex(0))\n let b = getValue('r41a#'+getRowIndex(0))\n b == 3 && a.length < 10;",
+                    "message":"Harus ada konfirmasi jika r41a berkode 3, ketikan hasil konfirmasi minimal 10 huruf",
+                    "type":1
+                }
+            ]
+        },
+        {
+            "dataKey":"r44a",
+            "componentValidation":["r44a", "r9a", "r9b", "r9c", "r10", "r6a"],
+            "validations": [
+                {
+                    "test":"let a = getValue('r44a#'+getRowIndex(0))\n a < 1 || a > 3",
+                    "message":"Isian hanya boleh 1 s.d. 3",
+                    "type":2
+                },
+                {
+                    "test":"let a = getValue('r44a#'+getRowIndex(0))\n let b = getValue('r9a#'+getRowIndex(0)) \n let c = getValue('r9b#'+getRowIndex(0)) \n let d = getValue('r9c#'+getRowIndex(0)) \n let e = getValue('r10#'+getRowIndex(0)) \n let f = getValue('r6a#'+getRowIndex(0)) \n f == 1 && a != 2 && ( b == 1 || c == 1 || d == 1 || e == 1 )",
+                    "message":"r9a/r9b/r9c/r10 kode 1, r6a = 1, tapi r44a tidak sama dengan 2",
+                    "type":2
+                }
+            ]
+        },
+        {
+            "dataKey":"r49d",
+            "componentValidation":["r49d@$ROW$"],
+            "validations": [
+                {
+                    "test":"let a = getValue('r49d#'+getRowIndex(0))\n a < 1 || a > 4",
+                    "message":"Isian hanya boleh 1 s.d. 4",
+                    "type":2
+                }
+            ]
+        }
+    ]
+ }
+  
