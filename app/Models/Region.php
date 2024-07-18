@@ -9,6 +9,9 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Region extends Model
 {
     use HasFactory;
+
+    public $timestamps = false;
+
     public function responses(): HasMany
     {
         return $this->hasMany(Response::class);

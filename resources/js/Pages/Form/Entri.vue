@@ -1,6 +1,6 @@
 <template>
 
-  <Head title="Dashboard" />
+  <Head title="Entri" />
 
   <!-- <AuthenticatedLayout> -->
   <div>

@@ -23,8 +23,8 @@ class FormController extends Controller
             'nama' => '['.$kabupaten->kabupaten.'] '.$kabupaten->nama_kabupaten
         ]);
         $data = DB::table('responses')
-                    ->select('region_id','nurt', 'created_at', DB::raw('count(*) as jumlah_art'))
-                    ->groupByRaw('region_id, nurt, created_at')
+                    ->select('region_id','nurt', 'docState', 'submit_status', 'updated_at', DB::raw('count(*) as jumlah_art'))
+                    ->groupByRaw('region_id, nurt, docState, submit_status, updated_at')
                     ->where('region_id', '=', $region_id)
                     ->where('pml', '=', $pml)
                     ->get();
@@ -507,6 +507,6 @@ class FormController extends Controller
     {
         $pml = auth()->user()->name ;
         Response::where('region_id', $region_id)->where('pml', '=', $pml)->where('nurt', $id)->delete();
-        return redirect()->route('form.index');
+        return redirect()->route('form.index', ['region_id' => $region_id]);
     }
 }

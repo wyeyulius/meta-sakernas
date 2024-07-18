@@ -169,7 +169,13 @@ function edit(id) {
                                     Jumlah Anggota Rumah Tangga 15 Tahun Ke Atas
                                 </th>
                                 <th scope="col" class="px-6 py-3">
-                                    Tanggal Entri
+                                    Status Dokumen
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Status Submit
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Terakhir diupdate
                                 </th>
                                 <th scope="col" class="px-6 py-3">
                                     Edit
@@ -196,7 +202,18 @@ function edit(id) {
                                     {{ datum.jumlah_art }}
                                 </td>
                                 <td class="px-6 py-4">
-                                    {{ datum.created_at }}
+                                    {{ datum.docState }}
+                                </td>
+                                <td class="px-6 py-4">
+                                    <div v-if="datum.docState == '1'">
+                                        Submitted
+                                    </div>
+                                    <div v-else>
+                                        Open
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4">
+                                    {{ datum.updated_at }}
                                 </td>
                                 <td class="px-6 py-4">
                                     <button @click="edit(datum.nurt)" type="button" :disabled="!blok"
