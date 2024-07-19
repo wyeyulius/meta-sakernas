@@ -210,39 +210,60 @@ class FormController extends Controller
                 $answers = $req['answers'];
                 $jumlah_art = array_column($answers, 'answer', 'dataKey')['jml_art'] ?? null;
                 $nurt = array_column($answers, 'answer', 'dataKey')['nurt'][0]['value'] ?? null;
-                $ResponseModel::where('region_id', $region_id)
-                    ->where('pml', $pml)
-                    ->where('nurt', $id)
-                    ->where('no_art', '>', $jumlah_art)
-                    ->delete();
-                    
-                for ($i = 0; $i < $jumlah_art; $i++) {
-                    $response = $ResponseModel::firstOrNew([
-                        'region_id' => $region_id, 
-                        'pml' => $pml, 
-                        'nurt' => $id, 
-                        'no_art' => $i+1
-                    ]);
+                $hasil_kunjungan = array_column($answers, 'answer', 'dataKey')['hasil_kunjungan'][0]['value'] ?? null;
+                if ($hasil_kunjungan != '1') {
+                    $response = new $ResponseModel;
                     $response->region_id = $region_id;
                     $response->nurt = $nurt;
-                    $response->hasil_kunjungan = array_column($answers, 'answer', 'dataKey')['hasil_kunjungan'][0]['value'] ?? null;
+                    $response->hasil_kunjungan = $hasil_kunjungan;
                     $response->pcl = array_column($answers, 'answer', 'dataKey')['pcl'][0]['value'] ?? null;
                     $response->pml = array_column($answers, 'answer', 'dataKey')['pml'] ?? null;
-                    $response->no_art = $i + 1;
-                    $no_urut = '#' . ($i + 1);
-                
-                    foreach ($answers as $key => $answer) {
-                    if (str_ends_with($answer['dataKey'], $no_urut)) {
-                        $dk = rtrim($answer['dataKey'], $no_urut);
-                        $response->$dk = is_array($answer['answer'])
-                            ? (empty($answer['answer']) ? null : json_encode($answer['answer']))
-                            : strval($answer['answer']);
-                    }
-                    }
                     $response->docState = $req['docState'];
-                    $response->submit_status = '2';
+                    $response->submit_status = '1';
                     $response->save();
+                    $jumlah_art = 0;
                 }
+                else {
+                    $ResponseModel::where('region_id', $region_id)
+                    ->where('pml', $pml)
+                    ->where('nurt', $id)
+                    ->where('hasil_kunjungan', '!=', '1')
+                    ->delete();
+                    for ($i = 0; $i < $jumlah_art; $i++) {
+                        $response = $ResponseModel::firstOrNew([
+                            'region_id' => $region_id, 
+                            'pml' => $pml, 
+                            'nurt' => $id, 
+                            'no_art' => $i+1
+                        ]);
+                        $response->region_id = $region_id;
+                        $response->nurt = $nurt;
+                        $response->hasil_kunjungan = $hasil_kunjungan;
+                        $response->pcl = array_column($answers, 'answer', 'dataKey')['pcl'][0]['value'] ?? null;
+                        $response->pml = array_column($answers, 'answer', 'dataKey')['pml'] ?? null;
+                        $response->no_art = $i + 1;
+                        $no_urut = '#' . ($i + 1);
+                    
+                        foreach ($answers as $key => $answer) {
+                        if (str_ends_with($answer['dataKey'], $no_urut)) {
+                            $dk = rtrim($answer['dataKey'], $no_urut);
+                            $response->$dk = is_array($answer['answer'])
+                                ? (empty($answer['answer']) ? null : json_encode($answer['answer']))
+                                : strval($answer['answer']);
+                        }
+                        }
+                        $response->docState = $req['docState'];
+                        $response->submit_status = '2';
+                        $response->save();
+                    }
+                }
+
+                $ResponseModel::where('region_id', $region_id)
+                ->where('pml', $pml)
+                ->where('nurt', $id)
+                ->where('no_art', '>', $jumlah_art)
+                ->delete();
+
                 return response()->json([
                     'message' => 'Data berhasil disimpan',
                     'id' => $response->nurt
@@ -259,25 +280,39 @@ class FormController extends Controller
         $req = $request->all();
         $answers = $req['answers'];
         $jumlah_art = array_column($answers, 'answer', 'dataKey')['jml_art'] ?? null;
-
-        for($i = 0; $i<$jumlah_art; $i++){
+        $hasil_kunjungan = array_column($answers, 'answer', 'dataKey')['hasil_kunjungan'][0]['value'] ?? null;
+        if ($hasil_kunjungan != '1') {
             $response = new $ResponseModel;
             $response->region_id = $region_id;
             $response->nurt = array_column($answers, 'answer', 'dataKey')['nurt'][0]['value'] ?? null;
-            $response->hasil_kunjungan = array_column($answers, 'answer', 'dataKey')['hasil_kunjungan'][0]['value'] ?? null;
+            $response->hasil_kunjungan = $hasil_kunjungan;
             $response->pcl = array_column($answers, 'answer', 'dataKey')['pcl'][0]['value'] ?? null;
             $response->pml = array_column($answers, 'answer', 'dataKey')['pml'] ?? null;
-            $response->no_art = $i + 1;
-            $no_urut = '#'.($i+1);
-            foreach($answers as $key => $answer){
-                if(str_ends_with($answer['dataKey'], $no_urut)){
-                    $dk = rtrim($answer['dataKey'], $no_urut);
-                    $response->$dk = strval($answer['answer']);
-                }
-            }
             $response->docState = $req['docState'];
             $response->submit_status = '1';
             $response->save();
+        }
+        else{
+            for($i = 0; $i<$jumlah_art; $i++){
+                $response = new $ResponseModel;
+                $response->region_id = $region_id;
+                $response->nurt = array_column($answers, 'answer', 'dataKey')['nurt'][0]['value'] ?? null;
+                $response->hasil_kunjungan = $hasil_kunjungan;
+                $response->pcl = array_column($answers, 'answer', 'dataKey')['pcl'][0]['value'] ?? null;
+                $response->pml = array_column($answers, 'answer', 'dataKey')['pml'] ?? null;
+                $response->no_art = $i + 1;
+                $no_urut = '#'.($i+1);
+                foreach($answers as $key => $answer){
+                    if(str_ends_with($answer['dataKey'], $no_urut)){
+                        $dk = rtrim($answer['dataKey'], $no_urut);
+                        $response->$dk = strval($answer['answer']);
+                    }
+                }
+                $response->docState = $req['docState'];
+                $response->submit_status = '1';
+                $response->save();
+    
+            }
         }
         return inertia_location('/');
 
@@ -472,39 +507,61 @@ class FormController extends Controller
         $answers = $req['answers'];
         $jumlah_art = array_column($answers, 'answer', 'dataKey')['jml_art'] ?? null;
         $nurt = array_column($answers, 'answer', 'dataKey')['nurt'][0]['value'] ?? null;
+        $hasil_kunjungan = array_column($answers, 'answer', 'dataKey')['hasil_kunjungan'][0]['value'] ?? null;
+        if ($hasil_kunjungan != '1') {
+            $response = new $ResponseModel;
+            $response->region_id = $region_id;
+            $response->nurt = $nurt;
+            $response->hasil_kunjungan = $hasil_kunjungan;
+            $response->pcl = array_column($answers, 'answer', 'dataKey')['pcl'][0]['value'] ?? null;
+            $response->pml = array_column($answers, 'answer', 'dataKey')['pml'] ?? null;
+            $response->docState = $req['docState'];
+            $response->submit_status = '1';
+            $response->save();
+            $jumlah_art = 0;
+        }
+        else {
+            $ResponseModel::where('region_id', $region_id)
+            ->where('pml', $pml)
+            ->where('nurt', $id)
+            ->where('hasil_kunjungan', '!=', '1')
+            ->delete();
+
+            for ($i = 0; $i < $jumlah_art; $i++) {
+                $response = $ResponseModel::firstOrNew([
+                    'region_id' => $region_id, 
+                    'pml' => $pml, 
+                    'nurt' => $id, 
+                    'no_art' => $i+1
+                ]);
+                $response->region_id = $region_id;
+                $response->nurt = $nurt;
+                $response->hasil_kunjungan = array_column($answers, 'answer', 'dataKey')['hasil_kunjungan'][0]['value'] ?? null;
+                $response->pcl = array_column($answers, 'answer', 'dataKey')['pcl'][0]['value'] ?? null;
+                $response->pml = array_column($answers, 'answer', 'dataKey')['pml'] ?? null;
+                $response->no_art = $i + 1;
+                $no_urut = '#' . ($i + 1);
+            
+                foreach ($answers as $key => $answer) {
+                if (str_ends_with($answer['dataKey'], $no_urut)) {
+                    $dk = rtrim($answer['dataKey'], $no_urut);
+                    $response->$dk = is_array($answer['answer'])
+                        ? (empty($answer['answer']) ? null : json_encode($answer['answer']))
+                        : strval($answer['answer']);
+                }
+                }
+                $response->docState = $req['docState'];
+                $response->submit_status = '2';
+                $response->save();
+            }
+        }
+
         $ResponseModel::where('region_id', $region_id)
             ->where('pml', $pml)
             ->where('nurt', $id)
             ->where('no_art', '>', $jumlah_art)
             ->delete();
-            
-        for ($i = 0; $i < $jumlah_art; $i++) {
-            $response = $ResponseModel::firstOrNew([
-                'region_id' => $region_id, 
-                'pml' => $pml, 
-                'nurt' => $id, 
-                'no_art' => $i+1
-            ]);
-            $response->region_id = $region_id;
-            $response->nurt = $nurt;
-            $response->hasil_kunjungan = array_column($answers, 'answer', 'dataKey')['hasil_kunjungan'][0]['value'] ?? null;
-            $response->pcl = array_column($answers, 'answer', 'dataKey')['pcl'][0]['value'] ?? null;
-            $response->pml = array_column($answers, 'answer', 'dataKey')['pml'] ?? null;
-            $response->no_art = $i + 1;
-            $no_urut = '#' . ($i + 1);
-        
-            foreach ($answers as $key => $answer) {
-            if (str_ends_with($answer['dataKey'], $no_urut)) {
-                $dk = rtrim($answer['dataKey'], $no_urut);
-                $response->$dk = is_array($answer['answer'])
-                    ? (empty($answer['answer']) ? null : json_encode($answer['answer']))
-                    : strval($answer['answer']);
-            }
-            }
-            $response->docState = $req['docState'];
-            $response->submit_status = '2';
-            $response->save();
-        }
+
         return inertia_location('/');
     }
 

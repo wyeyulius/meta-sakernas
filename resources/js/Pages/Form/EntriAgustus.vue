@@ -380,6 +380,7 @@ function initForm(reference, template, preset, response, validation, media, rema
 
     let setSubmitMobile = function (res, rem, princ, ref) {
         responseGear = res
+        console.log(responseGear);
         // mediaGear = med
         // remarkGear = rem
         // principalGear = princ

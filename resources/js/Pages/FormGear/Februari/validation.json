@@ -350,7 +350,7 @@
         },
         {
             "dataKey":"r37a",
-            "componentValidation":["r37a", "umur", "konfirmasi"],
+            "componentValidation":["r37a", "umur", "konfirmasir37"],
             "validations": [
                 {
                     "test":"let a = getValue('r37a#'+getRowIndex(0))\n a < 1 || a > 2",
@@ -366,7 +366,7 @@
         },
         {
             "dataKey":"r37b",
-            "componentValidation":["r37b", "umur", "konfirmasi"],
+            "componentValidation":["r37b", "umur", "konfirmasir37"],
             "validations": [
                 {
                     "test":"let a = getValue('r37b#'+getRowIndex(0))\n a < 1 || a > 2",

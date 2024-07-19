@@ -46,7 +46,7 @@ return new class extends Migration
             $table->integer('r38b')->nullable();
             $table->string('konfirmasir38')->nullable();
             $table->integer('r42a')->nullable();
-            $table->text('konfirmasi42')->nullable();
+            $table->text('konfirmasir42')->nullable();
             $table->integer('r45a')->nullable();
             $table->integer('r50d')->nullable();
             $table->char('docState', 1)->default('E');

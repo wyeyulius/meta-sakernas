@@ -164,8 +164,9 @@
         "label": "BLOK II",
         "dataKey": "blok2",
         "description": "KETERANGAN ANGGOTA RUMAH TANGGA 15 TAHUN KE-ATAS",
-        "type": 1,"enableCondition": "getValue('nurt') != 'null'",
-        "componentEnable": ["nurt"],
+        "type": 1,
+        "enableCondition": "let nurt = getValue('nurt'); \n\n let kunjungan = getValue('hasil_kunjungan'); \n\n nurt != null && kunjungan[0]?.value == '1'",
+        "componentEnable": ["nurt", "hasil_kunjungan"],
         "components": [
           [
             {
@@ -190,6 +191,8 @@
               "dataKey": "anggotakeluarganested",
               "description": "Anggota Rumah Tangga",
               "type": 2,
+              "enableCondition": "let nurt = getValue('nurt'); \n\n let kunjungan = getValue('hasil_kunjungan'); \n\n nurt != null && kunjungan[0]?.value == '1'",
+              "componentEnable": ["nurt", "hasil_kunjungan"],
               "sourceQuestion": "jml_art",
               "components": [
                 [
@@ -197,16 +200,7 @@
                     "label" : "Nama <b>Anggota Rumah Tangga</b>",
                     "type" : 25,
                     "dataKey" : "nama_art",
-                    "required" : true,
-                    "tabular" : false,
-                    "encrypted" : false,
-                    "enableRemark" : false,
-                    "presetMaster" : true,
-                    "disableInput" : false,
-                    "disableInitial" : false,
-                    "isCapital" : true,
-                    "isEditable" : false,
-                    "isEditableList" : true
+                    "required" : true
                   },
                   {
                     "label": "Umur:",
@@ -567,7 +561,7 @@
                   {
                     "label" : "Jika r42a = 3, hasil konfirmasi :",
                     "type" : 25,
-                    "dataKey" : "konfirmasi",
+                    "dataKey" : "konfirmasir42",
                     "tabular" : false,
                     "encrypted" : false,
                     "enableRemark" : false,
