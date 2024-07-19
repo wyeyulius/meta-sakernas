@@ -25,9 +25,7 @@ return new class extends Migration
             $table->string('nbs', 4)->nullable();
             $table->integer('nks')->nullable();
             $table->string('sak', 1)->nullable();
-            $table->integer('jumlah_keluarga')->nullable();
             $table->integer('jml_sampel')->default(10);
-            $table->string('sumber_data', 11)->nullable();
         });
     }
 
