@@ -122,6 +122,7 @@ class FormController extends Controller
                     ->where('kabupaten','=', $kab)
                     ->where('status', '=', '2')
                     ->get();
+                    
         $prefill = Region::all()->where('id', $idbs)->map(fn($prefill) =>[
             [
                 "dataKey" =>"prov",
@@ -187,7 +188,7 @@ class FormController extends Controller
     
                     foreach ($answers as $key => $answer) {
                         if (str_ends_with($answer['dataKey'], $no_urut)) {
-                            $dk = rtrim($answer['dataKey'], $no_urut);
+                            $dk = substr($answer['dataKey'], 0, -strlen($no_urut));
                             $response->$dk = is_array($answer['answer'])
                                 ? (empty($answer['answer']) ? null : json_encode($answer['answer']))
                                 : strval($answer['answer']);
@@ -205,9 +206,9 @@ class FormController extends Controller
             } else {
                 $pml = auth()->user()->name;
                 // $ResponseModel::where('region_id', $region_id)->where('pml', '=', $pml)->where('nurt', $id)->delete();
-                    
                 $req = $request->all();
                 $answers = $req['answers'];
+
                 $jumlah_art = array_column($answers, 'answer', 'dataKey')['jml_art'] ?? null;
                 $nurt = array_column($answers, 'answer', 'dataKey')['nurt'][0]['value'] ?? null;
                 $hasil_kunjungan = array_column($answers, 'answer', 'dataKey')['hasil_kunjungan'][0]['value'] ?? null;
@@ -219,7 +220,7 @@ class FormController extends Controller
                     $response->pcl = array_column($answers, 'answer', 'dataKey')['pcl'][0]['value'] ?? null;
                     $response->pml = array_column($answers, 'answer', 'dataKey')['pml'] ?? null;
                     $response->docState = $req['docState'];
-                    $response->submit_status = '1';
+                    $response->submit_status = '2';
                     $response->save();
                     $jumlah_art = 0;
                 }
@@ -229,6 +230,7 @@ class FormController extends Controller
                     ->where('nurt', $id)
                     ->where('hasil_kunjungan', '!=', '1')
                     ->delete();
+                    
                     for ($i = 0; $i < $jumlah_art; $i++) {
                         $response = $ResponseModel::firstOrNew([
                             'region_id' => $region_id, 
@@ -246,7 +248,7 @@ class FormController extends Controller
                     
                         foreach ($answers as $key => $answer) {
                         if (str_ends_with($answer['dataKey'], $no_urut)) {
-                            $dk = rtrim($answer['dataKey'], $no_urut);
+                            $dk = substr($answer['dataKey'], 0, -strlen($no_urut));
                             $response->$dk = is_array($answer['answer'])
                                 ? (empty($answer['answer']) ? null : json_encode($answer['answer']))
                                 : strval($answer['answer']);
@@ -304,7 +306,7 @@ class FormController extends Controller
                 $no_urut = '#'.($i+1);
                 foreach($answers as $key => $answer){
                     if(str_ends_with($answer['dataKey'], $no_urut)){
-                        $dk = rtrim($answer['dataKey'], $no_urut);
+                        $dk = substr($answer['dataKey'], 0, -strlen($no_urut));
                         $response->$dk = strval($answer['answer']);
                     }
                 }
@@ -415,7 +417,7 @@ class FormController extends Controller
                     ->where('nurt', "=", $id )
                     ->get();
 
-        $field = array('id', 'region_id', 'pcl', 'pml', 'nurt', 'no_art');
+        $field = array('id', 'region_id', 'pcl', 'pml', 'nurt', 'no_art', 'hasil_kunjungan');
         $response = [
             [
                 "dataKey" => "nurt",
@@ -423,6 +425,15 @@ class FormController extends Controller
                     [
                         "label" => $data[0]->nurt,
                         "value" => $data[0]->nurt
+                    ]
+                ]
+            ],
+            [
+                "dataKey" => "hasil_kunjungan",
+                "answer" => [
+                    [
+                        "label" => $data[0]->hasil_kunjungan,
+                        "value" => $data[0]->hasil_kunjungan
                     ]
                 ]
             ],
@@ -544,7 +555,7 @@ class FormController extends Controller
             
                 foreach ($answers as $key => $answer) {
                 if (str_ends_with($answer['dataKey'], $no_urut)) {
-                    $dk = rtrim($answer['dataKey'], $no_urut);
+                    $dk = substr($answer['dataKey'], 0, -strlen($no_urut));
                     $response->$dk = is_array($answer['answer'])
                         ? (empty($answer['answer']) ? null : json_encode($answer['answer']))
                         : strval($answer['answer']);
