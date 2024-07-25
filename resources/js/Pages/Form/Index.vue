@@ -1,23 +1,45 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-import { Head, router } from '@inertiajs/vue3';
-import { ref, defineProps, computed } from 'vue';
+import { Head, router, useRemember } from '@inertiajs/vue3';
+import { computed, defineProps } from 'vue';
+import axios from 'axios';
 
-// Use `ref` for reactive data
-const kabupaten = ref(null);
-const kecamatan = ref(null);
-const kecamatans = ref([]);
-const desa = ref(null);
-const desas = ref([]);
-const blok = ref(null);
-const bloks = ref([]);
+const formData = useRemember({
+    kabupaten: null,
+    kecamatan: null,
+    desa: null,
+    blok: null,
+}, 'form-data');
 
-// Use `defineProps` for props instead of `defineProps({ ... })`
+const kecamatans = useRemember([], 'kecamatans');
+const desas = useRemember([], 'desas');
+const bloks = useRemember([], 'bloks');
+
+const kabupaten = computed({
+    get: () => formData.value.kabupaten,
+    set: (value) => formData.value.kabupaten = value
+});
+
+const kecamatan = computed({
+    get: () => formData.value.kecamatan,
+    set: (value) => formData.value.kecamatan = value
+});
+
+const desa = computed({
+    get: () => formData.value.desa,
+    set: (value) => formData.value.desa = value
+});
+
+const blok = computed({
+    get: () => formData.value.blok,
+    set: (value) => formData.value.blok = value
+});
+
 defineProps({
     kabupatens: Object,
     data: Object,
     region: Object
-})
+});
 
 const destroy = (id) => {
     if (confirm('Apakah anda yakin menghapus entrian ini?')) {
@@ -25,16 +47,14 @@ const destroy = (id) => {
             preserveState: true,
             preserveScroll: true,
             only: ['data', 'region']
-        })
+        });
     }
-}
+};
 
 const loadKecamatans = async () => {
     try {
-        const response = await axios.get(`/kecamatan/` + kabupaten.value);
-
+        const response = await axios.get(`/kecamatan/${kabupaten.value}`);
         kecamatans.value = response.data.kecamatan;
-
     } catch (error) {
         console.error('Error fetching kecamatan:', error);
     }
@@ -42,12 +62,10 @@ const loadKecamatans = async () => {
 
 const loadDesas = async () => {
     try {
-        desa.value = null;
-        blok.value = null;
-        const response = await axios.get(`/desa/` + kabupaten.value + `/` + kecamatan.value);
-
+        formData.value.desa = null;
+        formData.value.blok = null;
+        const response = await axios.get(`/desa/${kabupaten.value}/${kecamatan.value}`);
         desas.value = response.data.desa;
-
     } catch (error) {
         console.error('Error fetching desa:', error);
     }
@@ -55,9 +73,8 @@ const loadDesas = async () => {
 
 const loadBloks = async () => {
     try {
-        blok.value = null;
-        const response = await axios.get(`/blok/` + kabupaten.value + `/` + kecamatan.value + `/` + desa.value);
-
+        formData.value.blok = null;
+        const response = await axios.get(`/blok/${kabupaten.value}/${kecamatan.value}/${desa.value}`);
         bloks.value = response.data.blok;
     } catch (error) {
         console.error('Error fetching blok sensus:', error);
@@ -65,26 +82,28 @@ const loadBloks = async () => {
 };
 
 function submit() {
-    router.visit("/form/" + blok.value, {
+    router.visit(`/form/${blok.value}`, {
         preserveState: true,
         preserveScroll: true,
         only: ['data', 'region']
-    })
+    });
 }
 
 function entri() {
-    router.visit("/form/create/" + blok.value, {
-        preserveState: false,
-        preserveScroll: false,
-    })
+    // router.visit(`/form/create/${blok.value}`, {
+    //     preserveState: true,
+    //     preserveScroll: true,
+    // });
+    window.open(`/form/create/${blok.value}`, '_blank');
 }
 
 function edit(id) {
-    const par = route().params
-    router.visit(route('form.edit', { region_id: par['region_id'], id }), {
-        preserveState: false,
-        preserveScroll: false,
-    })
+    const par = route().params;
+    // router.visit(route('form.edit', { region_id: par['region_id'], id }), {
+    //     preserveState: true,
+    //     preserveScroll: true,
+    // });
+    window.open(route('form.edit', { region_id: par['region_id'], id }), '_blank');
 }
 </script>
 
@@ -205,7 +224,7 @@ function edit(id) {
                                     {{ datum.docState }}
                                 </td>
                                 <td class="px-6 py-4">
-                                    <div v-if="datum.docState == '1'">
+                                    <div v-if="datum.submit_status == '1'">
                                         Submitted
                                     </div>
                                     <div v-else>

@@ -24,6 +24,11 @@
                     "type":2
                 },
                 {
+                    "test":"getValue('umur#'+getRowIndex(0)) > 98",
+                    "message":"Umur tidak boleh di atas 98 Tahun",
+                    "type":2
+                },
+                {
                     "test":"let a = getValue('r38a#'+getRowIndex(0))\n let b = getValue('r38b#'+getRowIndex(0))\n getValue('umur#'+getRowIndex(0)) >=  50 && ( a ==1 || b == 1 )",
                     "message":"r38a atau r38b = 1 tapi umur >= 50",
                     "type":1

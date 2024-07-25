@@ -147,8 +147,24 @@
 
         </div>
 
+        <AlertDialog v-model:open="open">
+            <AlertDialogContent>
+                <AlertDialogHeader>
+                    <AlertDialogTitle>Simpan Hasil Entri?</AlertDialogTitle>
+                    <AlertDialogDescription>
+                        Anda dapat menyimpan sementara hasil entri dan keluar ke halaman utama.
+                    </AlertDialogDescription>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                    <Button id="close-dialog" @click="open = false" variant="outline" class="m-1">Batal</Button>
+                    <Button class="m-1">Simpan</Button>
+                    <Button variant="destructive" class="m-1">Simpan & Keluar</Button>
+                </AlertDialogFooter>
+            </AlertDialogContent>
+        </AlertDialog>
 
         <div id="FormGear-root">
+
         </div>
 
     </div>
@@ -159,20 +175,59 @@
 <script setup module>
 // import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head } from '@inertiajs/vue3';
-import { FormGear } from "form-gear"
-import "form-gear/dist/style.css"
-import reference from "../FormGear/Agustus/reference"
-import template from "../FormGear/Agustus/template"
+import { FormGear } from "../../form-gear.es"
+// import "form-gear/dist/style.css"
+import reference from "../FormGear/Agustus/reference.json"
+import template from "../FormGear/Agustus/template.json"
 import preset from "../FormGear/Agustus/preset.json"
 import response from "../FormGear/Agustus/response.json"
 import validation from "../FormGear/Agustus/validation.json"
 import media from "../FormGear/Agustus/media.json"
 import remark from "../FormGear/Agustus/remark.json"
-import { computed, toRaw } from 'vue'
+import { computed, toRaw, onMounted, onBeforeUnmount, ref } from 'vue'
 import { usePage } from '@inertiajs/vue3'
 import { router } from '@inertiajs/vue3'
 import Toastify from 'toastify-js'
 import { debounce } from 'lodash';
+import {
+    AlertDialog,
+    AlertDialogAction,
+    AlertDialogCancel,
+    AlertDialogContent,
+    AlertDialogDescription,
+    AlertDialogFooter,
+    AlertDialogHeader,
+    AlertDialogTitle,
+    AlertDialogTrigger,
+} from '@/Components/ui/alert-dialog'
+import { Button } from '@/Components/ui/button'
+
+const open = ref(false);
+
+function loadFormGearCSS() {
+    const link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = '/css/style.css';
+    link.id = 'form-gear-css';
+    document.head.appendChild(link);
+}
+
+function unloadFormGearCSS() {
+    const link = document.getElementById('form-gear-css');
+    if (link) {
+        link.remove();
+    }
+}
+
+onMounted(() => {
+    loadFormGearCSS();
+
+});
+
+onBeforeUnmount(() => {
+    unloadFormGearCSS();
+});
+
 
 const toastInfo = (text, duration, position, bgColor) => {
     Toastify({
@@ -189,8 +244,13 @@ const toastInfo = (text, duration, position, bgColor) => {
     }).showToast();
 };
 
-// toastInfo('Aduh', 5000, "", "bg-pink-600/80");
-
+document.addEventListener('click', function (event) {
+    if (event.target.id === 'exit-btn' || event.target.id === 'exit-btn-sm' ||
+        event.target.closest('#exit-btn') || event.target.closest('#exit-btn-sm')) {
+        open.value = true;
+        // Your exit logic here
+    }
+});
 
 const page = usePage()
 
@@ -223,11 +283,7 @@ defineProps({
     region: Object
 })
 
-
-
 function initForm(reference, template, preset, response, validation, media, remark) {
-
-
     //variable config
     let config = {
         clientMode: 1, // 1 => CAWI ; 2 => CAPI ;
@@ -347,8 +403,6 @@ function initForm(reference, template, preset, response, validation, media, rema
         responseGear = res;
         previousResponseGear = JSON.parse(JSON.stringify(res)); // Deep copy copy
 
-        console.log(JSON.stringify(res), JSON.stringify(previousResponseGear));
-
         const jmlArt = responseGear.answers.find(item => item.dataKey === "jml_art")?.answer ?? null;
         const nurt = responseGear.answers.find(item => item.dataKey === "nurt")?.answer ?? null;
 
@@ -362,7 +416,7 @@ function initForm(reference, template, preset, response, validation, media, rema
                         toastInfo('Data berhasil disimpan', 5000, "", "bg-blue-600/80");
                     })
                     .catch(error => {
-                        toastInfo('Data gagal disimpan', 5000, "", "bg-pink-600/80");
+                        toastInfo('Data gagal disimpan, silakan coba lagi', 5000, "", "bg-pink-600/80");
                     });
             } else {
                 axios.post(`/form/store/${par['region_id']}`, responseGear)
@@ -372,7 +426,7 @@ function initForm(reference, template, preset, response, validation, media, rema
                         toastInfo('Data berhasil disimpan', 5000, "", "bg-blue-600/80");
                     })
                     .catch(error => {
-                        toastInfo('Data gagal disimpan', 5000, "", "bg-pink-600/80");
+                        toastInfo('Data gagal disimpan, silakan coba lagi', 5000, "", "bg-pink-600/80");
                     });
             }
         }
@@ -395,20 +449,28 @@ function initForm(reference, template, preset, response, validation, media, rema
         // console.log('reference', referenceGear)
         const par = route().params
         if (route().current() == "form.edit") {
-            router.visit('/form/update/' + par['region_id'] + '/' + par['id'], {
-                method: 'post',
-                data: responseGear,
-                preserveState: false,
-                preserveScroll: false,
-            })
+            axios.post(`/form/update/${par['region_id']}/${par['id']}`, responseGear)
+                .then(response => {
+                    const newId = response.data.id;
+                    // history.pushState({}, '', `/form/edit/${par['region_id']}/${newId}`);
+                    toastInfo('Data berhasil disubmit', 5000, "", "bg-blue-600/80");
+                    // window.close();
+                })
+                .catch(error => {
+                    toastInfo('Data gagal disubmit, silakan coba lagi', 5000, "", "bg-pink-600/80");
+                });
         }
         else {
-            router.visit('/form/submit/' + par['region_id'], {
-                method: 'post',
-                data: responseGear,
-                preserveState: false,
-                preserveScroll: false,
-            })
+            axios.post(`/form/submit/${par['region_id']}`, responseGear)
+                .then(response => {
+                    const newId = response.data.id;
+                    // history.pushState({}, '', `/form/edit/${par['region_id']}/${newId}`);
+                    toastInfo('Data berhasil disubmit', 5000, "", "bg-blue-600/80");
+                    // window.close();
+                })
+                .catch(error => {
+                    toastInfo('Data gagal disubmit, silakan coba lagi', 5000, "", "bg-pink-600/80");
+                });
         }
 
     }
