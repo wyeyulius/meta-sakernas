@@ -180,6 +180,7 @@ class FormController extends Controller
                     $response = new $ResponseModel;
                     $response->region_id = $region_id;
                     $response->nurt = array_column($answers, 'answer', 'dataKey')['nurt'][0]['value'] ?? null;
+                    $response->nama_krt = array_column($answers, 'answer', 'dataKey')['nama_krt'] ?? null; 
                     $response->hasil_kunjungan = array_column($answers, 'answer', 'dataKey')['hasil_kunjungan'][0]['value'] ?? null;
                     $response->pcl = array_column($answers, 'answer', 'dataKey')['pcl'][0]['value'] ?? null;
                     $response->pml = array_column($answers, 'answer', 'dataKey')['pml'] ?? null;
@@ -216,6 +217,7 @@ class FormController extends Controller
                     $response = new $ResponseModel;
                     $response->region_id = $region_id;
                     $response->nurt = $nurt;
+                    $response->nama_krt = array_column($answers, 'answer', 'dataKey')['nama_krt'] ?? null; 
                     $response->hasil_kunjungan = $hasil_kunjungan;
                     $response->pcl = array_column($answers, 'answer', 'dataKey')['pcl'][0]['value'] ?? null;
                     $response->pml = array_column($answers, 'answer', 'dataKey')['pml'] ?? null;
@@ -240,6 +242,7 @@ class FormController extends Controller
                         ]);
                         $response->region_id = $region_id;
                         $response->nurt = $nurt;
+                        $response->nama_krt = array_column($answers, 'answer', 'dataKey')['nama_krt'] ?? null; 
                         $response->hasil_kunjungan = $hasil_kunjungan;
                         $response->pcl = array_column($answers, 'answer', 'dataKey')['pcl'][0]['value'] ?? null;
                         $response->pml = array_column($answers, 'answer', 'dataKey')['pml'] ?? null;
@@ -296,6 +299,7 @@ class FormController extends Controller
                 ]);
                 $response->region_id = $region_id;
                 $response->nurt = $nurt;
+                $response->nama_krt = array_column($answers, 'answer', 'dataKey')['nama_krt'] ?? null; 
                 $response->hasil_kunjungan = $hasil_kunjungan;
                 $response->pcl = array_column($answers, 'answer', 'dataKey')['pcl'][0]['value'] ?? null;
                 $response->pml = $pml;
@@ -307,6 +311,7 @@ class FormController extends Controller
                     $response = new $ResponseModel;
                     $response->region_id = $region_id;
                     $response->nurt = array_column($answers, 'answer', 'dataKey')['nurt'][0]['value'] ?? null;
+                    $response->nama_krt = array_column($answers, 'answer', 'dataKey')['nama_krt'] ?? null; 
                     $response->hasil_kunjungan = $hasil_kunjungan;
                     $response->pcl = array_column($answers, 'answer', 'dataKey')['pcl'][0]['value'] ?? null;
                     $response->pml = array_column($answers, 'answer', 'dataKey')['pml'] ?? null;
@@ -441,7 +446,7 @@ class FormController extends Controller
             $jml_art = sizeof($data);
         }
 
-        $field = array('id', 'region_id', 'pcl', 'pml', 'nurt', 'no_art', 'hasil_kunjungan');
+        $field = array('id', 'region_id','nama_krt', 'pcl', 'pml', 'nurt', 'no_art', 'hasil_kunjungan');
         $response = [
             [
                 "dataKey" => "nurt",
@@ -451,6 +456,10 @@ class FormController extends Controller
                         "value" => $data[0]->nurt
                     ]
                 ]
+            ],
+            [
+                "dataKey" => "nama_krt",
+                "answer" => $data[0]->nama_krt
             ],
             [
                 "dataKey" => "hasil_kunjungan",
@@ -553,6 +562,7 @@ class FormController extends Controller
                 ]);
                 $response->region_id = $region_id;
                 $response->nurt = $nurt;
+                $response->nama_krt = array_column($answers, 'answer', 'dataKey')['nama_krt'] ?? null; 
                 $response->hasil_kunjungan = $hasil_kunjungan;
                 $response->pcl = array_column($answers, 'answer', 'dataKey')['pcl'][0]['value'] ?? null;
                 $response->pml = array_column($answers, 'answer', 'dataKey')['pml'] ?? null;
@@ -576,6 +586,7 @@ class FormController extends Controller
                     ]);
                     $response->region_id = $region_id;
                     $response->nurt = $nurt;
+                    $response->nama_krt = array_column($answers, 'answer', 'dataKey')['nama_krt'] ?? null; 
                     $response->hasil_kunjungan = array_column($answers, 'answer', 'dataKey')['hasil_kunjungan'][0]['value'] ?? null;
                     $response->pcl = array_column($answers, 'answer', 'dataKey')['pcl'][0]['value'] ?? null;
                     $response->pml = array_column($answers, 'answer', 'dataKey')['pml'] ?? null;

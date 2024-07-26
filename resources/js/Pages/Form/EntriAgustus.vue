@@ -152,13 +152,30 @@
                 <AlertDialogHeader>
                     <AlertDialogTitle>Simpan Hasil Entri?</AlertDialogTitle>
                     <AlertDialogDescription>
-                        Anda dapat menyimpan sementara hasil entri dan keluar ke halaman utama.
+                        Anda dapat menyimpan sementara hasil entri dan keluar ke halaman utama. Pastikan sudah menyimpan
+                        data sebelum keluar.
                     </AlertDialogDescription>
                 </AlertDialogHeader>
                 <AlertDialogFooter>
-                    <Button id="close-dialog" @click="open = false" variant="outline" class="m-1">Batal</Button>
-                    <Button class="m-1">Simpan</Button>
-                    <Button variant="destructive" class="m-1">Simpan & Keluar</Button>
+                    <Button id="close-dialog" @click="open = false" variant="outline" class="m-1">Tutup</Button>
+                    <Button @click="saveForm" class="m-1">Simpan</Button>
+                    <Button @click="saveAndExit" variant="destructive" class="m-1">Keluar</Button>
+                </AlertDialogFooter>
+            </AlertDialogContent>
+        </AlertDialog>
+
+        <AlertDialog v-model:open="timer">
+            <AlertDialogContent>
+                <Progress :model-value="progressBarWidth" />
+                <AlertDialogHeader>
+                    <AlertDialogTitle>Data berhasil disubmit</AlertDialogTitle>
+                    <AlertDialogDescription>
+                        Kuesioner akan tertutup otomatis dalam 5 detik. Atau anda dapat
+                        menekan tombol keluar di bawah ini. Terima kasih.
+                    </AlertDialogDescription>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                    <Button @click="exit" variant="destructive" class="m-1">Keluar</Button>
                 </AlertDialogFooter>
             </AlertDialogContent>
         </AlertDialog>
@@ -201,8 +218,17 @@ import {
     AlertDialogTrigger,
 } from '@/Components/ui/alert-dialog'
 import { Button } from '@/Components/ui/button'
+import { Progress } from "@/Components/ui/progress";
 
 const open = ref(false);
+
+const timer = ref(false);
+
+const countdown = ref(5);
+
+let redirectTimer = null;
+
+const progressBarWidth = ref(0);
 
 function loadFormGearCSS() {
     const link = document.createElement('link');
@@ -228,6 +254,21 @@ onBeforeUnmount(() => {
     unloadFormGearCSS();
 });
 
+const saveForm = () => {
+    document.getElementById('simpan-form').click();
+
+}
+
+const saveAndExit = () => {
+    saveForm();
+    if (confirm("Apakah anda yakin ingin keluar? Pastikan sudah menyimpan data")) {
+        window.close(); // Close the tab after saving and confirmation
+    }
+};
+
+const exit = () => {
+    window.close(); // Close the tab after saving and confirmation
+};
 
 const toastInfo = (text, duration, position, bgColor) => {
     Toastify({
@@ -242,6 +283,8 @@ const toastInfo = (text, duration, position, bgColor) => {
             width: "400px"
         }
     }).showToast();
+
+    document.dispatchEvent(new Event('toastShown'));
 };
 
 document.addEventListener('click', function (event) {
@@ -275,13 +318,31 @@ if (answers != null) {
 
 preset['predata'] = prefill[Object.entries(prefill)[0][0]]
 
-template['components'][0][0]['components'][0][9]['options'] = rawPcl
+template['components'][0][0]['components'][0][10]['options'] = rawPcl
 
 template['components'][0][0]['components'][0][7]['options'] = rawNurt
 
 defineProps({
     region: Object
 })
+
+function debounceImmediate(func, wait) {
+    let timeout;
+    let firstCall = true;
+    return function (...args) {
+        const context = this;
+        if (firstCall) {
+            func.apply(context, args);
+            firstCall = false;
+            return;
+        }
+        clearTimeout(timeout);
+        timeout = setTimeout(() => {
+            func.apply(context, args);
+        }, wait);
+    };
+}
+
 
 function initForm(reference, template, preset, response, validation, media, remark) {
     //variable config
@@ -387,21 +448,24 @@ function initForm(reference, template, preset, response, validation, media, rema
     }
 
     let previousResponseGear = null;
+    let isInCooldown = false;
     //function to get response, remark, principal and reference
     let setResponseMobile = debounce(function (res, rem, princ, ref) {
+        isInCooldown = true;
         const currentRes = removeUpdatedAt(res);
         const previousRes = previousResponseGear ? removeUpdatedAt(previousResponseGear) : null;
 
         if (JSON.stringify(currentRes) === JSON.stringify(previousRes)) {
+            toastInfo('Belum ada perubahan data untuk disimpan', 3000, "", "bg-green-600/80");
             return; // No changes, exit early
         }
 
         if (previousResponseGear == null) {
             previousResponseGear = JSON.parse(JSON.stringify(res)); // Deep copy copy
+            toastInfo('Belum ada perubahan data untuk disimpan', 3000, "", "bg-green-600/80");
             return;
         }
         responseGear = res;
-        previousResponseGear = JSON.parse(JSON.stringify(res)); // Deep copy copy
 
         const jmlArt = responseGear.answers.find(item => item.dataKey === "jml_art")?.answer ?? null;
         const nurt = responseGear.answers.find(item => item.dataKey === "nurt")?.answer ?? null;
@@ -414,6 +478,7 @@ function initForm(reference, template, preset, response, validation, media, rema
                         const newId = response.data.id;
                         history.pushState({}, '', `/form/edit/${par['region_id']}/${newId}`);
                         toastInfo('Data berhasil disimpan', 5000, "", "bg-blue-600/80");
+                        previousResponseGear = JSON.parse(JSON.stringify(res)); // Deep copy copy
                     })
                     .catch(error => {
                         toastInfo('Data gagal disimpan, silakan coba lagi', 5000, "", "bg-pink-600/80");
@@ -424,17 +489,18 @@ function initForm(reference, template, preset, response, validation, media, rema
                         const newId = response.data.id;
                         history.pushState({}, '', `/form/edit/${par['region_id']}/${newId}`);
                         toastInfo('Data berhasil disimpan', 5000, "", "bg-blue-600/80");
+                        previousResponseGear = JSON.parse(JSON.stringify(res)); // Deep copy copy
                     })
                     .catch(error => {
                         toastInfo('Data gagal disimpan, silakan coba lagi', 5000, "", "bg-pink-600/80");
                     });
             }
         }
-    }, 1000);
+    }, 3000);
 
     let setSubmitMobile = function (res, rem, princ, ref) {
         responseGear = res
-        console.log(responseGear);
+        // console.log(responseGear);
         // mediaGear = med
         // remarkGear = rem
         // principalGear = princ
@@ -452,9 +518,22 @@ function initForm(reference, template, preset, response, validation, media, rema
             axios.post(`/form/update/${par['region_id']}/${par['id']}`, responseGear)
                 .then(response => {
                     const newId = response.data.id;
-                    // history.pushState({}, '', `/form/edit/${par['region_id']}/${newId}`);
                     toastInfo('Data berhasil disubmit', 5000, "", "bg-blue-600/80");
-                    // window.close();
+                    timer.value = true;
+                    const interval = 50; // Update every 50 milliseconds for smoother progress bar
+                    const totalSteps = (countdown.value * 1000) / interval;
+                    let currentStep = 0;
+                    redirectTimer = window.setInterval(() => {
+                        countdown.value -= interval / 1000;
+                        currentStep++;
+                        progressBarWidth.value = (currentStep / totalSteps) * 100;
+                        if (countdown.value <= 0) {
+                            clearInterval(redirectTimer);
+                        }
+                    }, interval);
+                    setTimeout(() => {
+                        window.close();
+                    }, 5500);
                 })
                 .catch(error => {
                     toastInfo('Data gagal disubmit, silakan coba lagi', 5000, "", "bg-pink-600/80");
@@ -464,9 +543,22 @@ function initForm(reference, template, preset, response, validation, media, rema
             axios.post(`/form/submit/${par['region_id']}`, responseGear)
                 .then(response => {
                     const newId = response.data.id;
-                    // history.pushState({}, '', `/form/edit/${par['region_id']}/${newId}`);
                     toastInfo('Data berhasil disubmit', 5000, "", "bg-blue-600/80");
-                    // window.close();
+                    timer.value = true;
+                    const interval = 50; // Update every 50 milliseconds for smoother progress bar
+                    const totalSteps = (countdown.value * 1000) / interval;
+                    let currentStep = 0;
+                    redirectTimer = window.setInterval(() => {
+                        countdown.value -= interval / 1000;
+                        currentStep++;
+                        progressBarWidth.value = (currentStep / totalSteps) * 100;
+                        if (countdown.value <= 0) {
+                            clearInterval(redirectTimer);
+                        }
+                    }, interval);
+                    setTimeout(() => {
+                        window.close();
+                    }, 5500);
                 })
                 .catch(error => {
                     toastInfo('Data gagal disubmit, silakan coba lagi', 5000, "", "bg-pink-600/80");

@@ -1,92 +1,57 @@
 <script setup lang="ts">
-import Checkbox from '@/Components/Checkbox.vue';
-import GuestLayout from '@/Layouts/GuestLayout.vue';
-import InputError from '@/Components/InputError.vue';
-import InputLabel from '@/Components/InputLabel.vue';
-import PrimaryButton from '@/Components/PrimaryButton.vue';
-import TextInput from '@/Components/TextInput.vue';
-import { Head, Link, useForm } from '@inertiajs/vue3';
-
-defineProps<{
-    canResetPassword?: boolean;
-    status?: string;
-}>();
-
-const form = useForm({
-    email: '',
-    password: '',
-    remember: false,
-});
-
-const submit = () => {
-    form.post(route('login'), {
-        onFinish: () => {
-            form.reset('password');
-        },
-    });
-};
+import { Head } from "@inertiajs/vue3";
+import UserAuthForm from "@/Components/UserAuthForm.vue";
 </script>
 
 <template>
-    <GuestLayout>
-        <Head title="Log in" />
 
-        <div v-if="status" class="mb-4 font-medium text-sm text-green-600">
-            {{ status }}
+    <Head title="Log In" />
+    <div
+        class="container relative grid h-screen flex-col items-center justify-center md:grid lg:max-w-none lg:grid-cols-2 lg:px-0">
+        <img class="w-20 sm:w-6 lg:w-16 absolute right-4 top-4 md:right-8 md:top-8" src="@img/rb.png" alt="logo" />
+        <!-- <a href="/examples/authentication" :class="cn(
+            buttonVariants({ variant: 'ghost' }),
+            'absolute right-4 top-4 md:right-8 md:top-8',
+        )">
+            Login
+        </a> -->
+        <div class="relative hidden h-full flex-col bg-muted p-10 text-white dark:border-r lg:flex">
+            <div class="absolute inset-0 bg-zinc-900" />
+            <div class="relative z-20 flex items-center text-lg font-medium">
+                <img class="w-20 sm:w-6 lg:w-16" src="@img/bps.svg" alt="logo" />
+            </div>
+            <div class="relative z-20 mt-auto">
+                <blockquote class="space-y-2">
+                    <p class="text-lg">
+                        &ldquo;It does not matter how slowly you go, so long as you do not stop.&rdquo;
+                    </p>
+                    <footer class="text-sm">—Confucius</footer>
+                </blockquote>
+            </div>
         </div>
-
-        <form @submit.prevent="submit">
-            <div>
-                <InputLabel for="email" value="Email" />
-
-                <TextInput
-                    id="email"
-                    type="email"
-                    class="mt-1 block w-full"
-                    v-model="form.email"
-                    required
-                    autofocus
-                    autocomplete="username"
-                />
-
-                <InputError class="mt-2" :message="form.errors.email" />
+        <div class="lg:p-8">
+            <div class="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]">
+                <div class="flex flex-col space-y-2 text-center">
+                    <h1 class="text-2xl font-semibold tracking-tight">
+                        Silakan login untuk melanjutkan
+                    </h1>
+                    <p class="text-sm text-muted-foreground">
+                        Masukan email dan password anda
+                    </p>
+                </div>
+                <UserAuthForm />
+                <!-- <p class="px-8 text-center text-sm text-muted-foreground">
+                    By clicking continue, you agree to our
+                    <a href="/terms" class="underline underline-offset-4 hover:text-primary">
+                        Terms of Service
+                    </a>
+                    and
+                    <a href="/privacy" class="underline underline-offset-4 hover:text-primary">
+                        Privacy Policy
+                    </a>
+                    .
+                </p> -->
             </div>
-
-            <div class="mt-4">
-                <InputLabel for="password" value="Password" />
-
-                <TextInput
-                    id="password"
-                    type="password"
-                    class="mt-1 block w-full"
-                    v-model="form.password"
-                    required
-                    autocomplete="current-password"
-                />
-
-                <InputError class="mt-2" :message="form.errors.password" />
-            </div>
-
-            <div class="block mt-4">
-                <label class="flex items-center">
-                    <Checkbox name="remember" v-model:checked="form.remember" />
-                    <span class="ms-2 text-sm text-gray-600">Remember me</span>
-                </label>
-            </div>
-
-            <div class="flex items-center justify-end mt-4">
-                <Link
-                    v-if="canResetPassword"
-                    :href="route('password.request')"
-                    class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                >
-                    Forgot your password?
-                </Link>
-
-                <PrimaryButton class="ms-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                    Log in
-                </PrimaryButton>
-            </div>
-        </form>
-    </GuestLayout>
+        </div>
+    </div>
 </template>

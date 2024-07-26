@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('pcl')->nullable();
             $table->string('pml')->nullable();
             $table->integer('nurt')->nullable();
+            $table->string('nama_krt')->nullable();
             $table->integer('hasil_kunjungan');
             $table->integer('no_art')->nullable();
             $table->string('nama_art')->nullable();

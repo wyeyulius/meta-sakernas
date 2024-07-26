@@ -111,7 +111,14 @@
               ]
             },
             {
-              "label": "9. Hasil Kunjungan",
+              "label" : "9. Nama <b>Kepala Rumah Tangga</b>",
+              "type" : 25,
+              "dataKey" : "nama_krt",
+              "required" : true,
+              "enableRemark" : false
+            },
+            {
+              "label": "10. Hasil Kunjungan",
               "dataKey": "hasil_kunjungan",
               "type": 27,
               "typeOption": 1,
@@ -133,7 +140,7 @@
               ]
             },
             {
-              "label": "10. Nama PCL",
+              "label": "11. Nama PCL",
               "dataKey": "pcl",
               "type": 27,
               "typeOption": 1,
@@ -144,7 +151,7 @@
               ]
             },
             {
-              "label" : "11. Nama PML",
+              "label" : "12. Nama PML",
               "type" : 25,
               "dataKey" : "pml",
               "required" : true,
