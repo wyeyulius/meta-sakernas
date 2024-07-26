@@ -24,8 +24,8 @@ class FormController extends Controller
             'nama' => '['.$kabupaten->kabupaten.'] '.$kabupaten->nama_kabupaten
         ]);
         $data = DB::table(getResponseTable())
-                    ->select('region_id','nurt', 'docState', 'submit_status', 'updated_at', DB::raw('count(*) as jumlah_art'))
-                    ->groupByRaw('region_id, nurt, docState, submit_status, updated_at')
+                    ->select('region_id','nurt', 'docState', 'nama_krt', 'submit_status', 'updated_at', DB::raw('count(*) as jumlah_art'))
+                    ->groupByRaw('region_id, nurt, docState, nama_krt ,submit_status, updated_at')
                     ->where('region_id', '=', $region_id)
                     ->where('pml', '=', $pml)
                     ->get();

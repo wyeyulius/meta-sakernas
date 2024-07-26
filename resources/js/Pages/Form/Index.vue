@@ -185,6 +185,9 @@ function edit(id) {
                                     No. Urut Ruta
                                 </th>
                                 <th scope="col" class="px-6 py-3">
+                                    Nama Kepala Rumah Tangga
+                                </th>
+                                <th scope="col" class="px-6 py-3">
                                     Jumlah Anggota Rumah Tangga 15 Tahun Ke Atas
                                 </th>
                                 <th scope="col" class="px-6 py-3">
@@ -206,7 +209,7 @@ function edit(id) {
                         </thead>
                         <tbody>
                             <tr v-if="data == ''">
-                                <td colspan="5" scope="row"
+                                <td colspan="8" scope="row"
                                     class="px-6 text-center py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                     Data tidak tersedia
                                 </td>
@@ -217,6 +220,9 @@ function edit(id) {
                                     class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                     {{ datum.nurt }}
                                 </th>
+                                <td class="px-6 py-4">
+                                    {{ datum.nama_krt }}
+                                </td>
                                 <td class="px-6 py-4">
                                     {{ datum.jumlah_art }}
                                 </td>
