@@ -462,8 +462,8 @@ function initForm(reference, template, preset, response, validation, media, rema
 
         if (previousResponseGear == null) {
             previousResponseGear = JSON.parse(JSON.stringify(res)); // Deep copy copy
-            toastInfo('Belum ada perubahan data untuk disimpan', 3000, "", "bg-green-600/80");
-            return;
+            // toastInfo('Belum ada perubahan data untuk disimpan', 3000, "", "bg-green-600/80");
+            // return;
         }
         responseGear = res;
 
