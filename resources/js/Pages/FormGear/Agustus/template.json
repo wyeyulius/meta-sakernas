@@ -207,7 +207,8 @@
                     "label" : "Nama <b>Anggota Rumah Tangga</b>",
                     "type" : 25,
                     "dataKey" : "nama_art",
-                    "required" : true
+                    "required" : true,
+                    "enableRemark" : false
                   },
                   {
                     "label": "Umur:",

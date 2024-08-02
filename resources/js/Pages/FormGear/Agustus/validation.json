@@ -8,7 +8,7 @@
             "componentValidation":["jml_art"],
             "validations": [
                 {
-                    "test":"getValue('jml_art') < 1",
+                    "test":"getValue('jml_art') < 1 && getValue('jml_art') != '' ",
                     "message":"Jumlah Anggota Rumah Tangga minimal 1",
                     "type":2
                 }
