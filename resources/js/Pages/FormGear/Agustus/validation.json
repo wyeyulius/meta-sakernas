@@ -8,7 +8,7 @@
             "componentValidation":["jml_art"],
             "validations": [
                 {
-                    "test":"getValue('jml_art') < 1 && getValue('jml_art') != '' ",
+                    "test":"if (getValue('jml_art') > 0) { getValue('jml_art') < 1 } ",
                     "message":"Jumlah Anggota Rumah Tangga minimal 1",
                     "type":2
                 }
@@ -19,7 +19,7 @@
             "componentValidation":["umur", "r38a", "r38b"],
             "validations": [
                 {
-                    "test":"getValue('umur#'+getRowIndex(0)) < 15",
+                    "test":"if(getValue('umur#'+getRowIndex(0)) > 0) { getValue('umur#'+getRowIndex(0)) < 15 }",
                     "message":"Umur tidak boleh di bawah 15 Tahun",
                     "type":2
                 },
@@ -40,7 +40,7 @@
             "componentValidation":["r45a", "r10a", "r10b", "r10c", "r11", "r6a"],
             "validations": [
                 {
-                    "test":"let a = getValue('r6a#'+getRowIndex(0))\n a < 1 || a > 12",
+                    "test":"let a = getValue('r6a#'+getRowIndex(0))\n if(a > 0) { a < 1 || a > 12 }",
                     "message":"Isian hanya boleh 1 s.d 12",
                     "type":2
                 },
@@ -56,7 +56,7 @@
             "componentValidation":["r8a@$ROW$"],
             "validations": [
                 {
-                    "test":"let a = getValue('r8a#'+getRowIndex(0))\n a < 1 || a > 4",
+                    "test":"let a = getValue('r8a#'+getRowIndex(0))\n if(a > 0) { a < 1 || a > 4} ",
                     "message":"Isian hanya boleh 1 s.d 4",
                     "type":2
                 }
@@ -67,7 +67,7 @@
             "componentValidation":["r8b@$ROW$"],
             "validations": [
                 {
-                    "test":"let a = getValue('r8b#'+getRowIndex(0))\n a < 5 || a > 8",
+                    "test":"let a = getValue('r8b#'+getRowIndex(0))\n if(a > 0) { a < 5 || a > 8} ",
                     "message":"Isian hanya boleh 5 s.d 8",
                     "type":2
                 }
@@ -78,7 +78,7 @@
             "componentValidation":["r8c@$ROW$"],
             "validations": [
                 {
-                    "test":"let a = getValue('r8c#'+getRowIndex(0))\n a < 1 || a > 4",
+                    "test":"let a = getValue('r8c#'+getRowIndex(0))\n if(a > 0) { a < 1 || a > 4} ",
                     "message":"Isian hanya boleh 1 s.d 4",
                     "type":2
                 }
@@ -89,7 +89,7 @@
             "componentValidation":["r8d@$ROW$"],
             "validations": [
                 {
-                    "test":"let a = getValue('r8d#'+getRowIndex(0))\n a < 5 || a > 8",
+                    "test":"let a = getValue('r8d#'+getRowIndex(0))\n if(a > 0) { a < 5 || a > 8}",
                     "message":"Isian hanya boleh 5 s.d 8",
                     "type":2
                 }
@@ -100,7 +100,7 @@
             "componentValidation":["r8e@$ROW$"],
             "validations": [
                 {
-                    "test":"let a = getValue('r8e#'+getRowIndex(0))\n a < 1 || a > 4",
+                    "test":"let a = getValue('r8e#'+getRowIndex(0))\n if(a > 0) { a < 1 || a > 4}",
                     "message":"Isian hanya boleh 1 s.d 4",
                     "type":2
                 }
@@ -111,7 +111,7 @@
             "componentValidation":["r8f@$ROW$"],
             "validations": [
                 {
-                    "test":"let a = getValue('r8f#'+getRowIndex(0))\n a < 5 || a > 8",
+                    "test":"let a = getValue('r8f#'+getRowIndex(0))\n if(a > 0) { a < 5 || a > 8}",
                     "message":"Isian hanya boleh 5 s.d 8",
                     "type":2
                 }
@@ -122,7 +122,7 @@
             "componentValidation":["konfirmasir11", "r10a", "r8a", "r8b", "r8c", "r8d", "r8e", "r8f", "r45a", "r6a"],
             "validations": [
                 {
-                    "test":"let a = getValue('r10a#'+getRowIndex(0))\n a < 1 || a > 2",
+                    "test":"let a = getValue('r10a#'+getRowIndex(0))\n if(a > 0) { a < 1 || a > 2 }",
                     "message":"Isian hanya boleh 1 atau 2",
                     "type":2
                 },
@@ -143,7 +143,7 @@
             "componentValidation":["konfirmasir11", "r10b", "r8a", "r8b", "r8c", "r8d", "r8e", "r8f", "r45a", "r6a"],
             "validations": [
                 {
-                    "test":"let a = getValue('r10b#'+getRowIndex(0))\n a < 1 || a > 2",
+                    "test":"let a = getValue('r10b#'+getRowIndex(0))\n if(a > 0) { a < 1 || a > 2 }",
                     "message":"Isian hanya boleh 1 atau 2",
                     "type":2
                 },
@@ -164,7 +164,7 @@
             "componentValidation":["konfirmasir11", "r10c", "r8a", "r8b", "r8c", "r8d", "r8e", "r8f", "r45a", "r6a"],
             "validations": [
                 {
-                    "test":"let a = getValue('r10c#'+getRowIndex(0))\n a < 1 || a > 2",
+                    "test":"let a = getValue('r10c#'+getRowIndex(0))\n if(a > 0) { a < 1 || a > 2 }",
                     "message":"Isian hanya boleh 1 atau 2",
                     "type":2
                 },
@@ -185,7 +185,7 @@
             "componentValidation":["konfirmasir11","r11","r8a", "r8b", "r8c", "r8d", "r8e", "r8f", "r45a", "r6a"],
             "validations": [
                 {
-                    "test":"let a = getValue('r11#'+getRowIndex(0))\n a < 1 || a > 2",
+                    "test":"let a = getValue('r11#'+getRowIndex(0))\n if(a > 0) { a < 1 || a > 2}",
                     "message":"Isian hanya boleh 1 atau 2",
                     "type":2
                 },
@@ -217,7 +217,7 @@
             "componentValidation":["r14a", "kbji"],
             "validations": [
                 {
-                    "test":"let a = getValue('r14a#'+getRowIndex(0))\n a < 1 || a > 7",
+                    "test":"let a = getValue('r14a#'+getRowIndex(0))\n if(a > 0) { a < 1 || a > 7}",
                     "message":"Isian hanya boleh 1 s.d. 7",
                     "type":2
                 },
@@ -300,7 +300,7 @@
             "componentValidation":["r17a", "r17b" ,"r10a", "r10b", "r10c", "r11"],
             "validations": [
                 {
-                    "test":"let a = getValue('r17a#'+getRowIndex(0))\n a < 1 || a > 5",
+                    "test":"let a = getValue('r17a#'+getRowIndex(0))\n if(a > 0) { a < 1 || a > 5 }",
                     "message":"Isian hanya boleh 1 s.d. 5",
                     "type":2
                 },
@@ -316,7 +316,7 @@
             "componentValidation":["kbji","r17a","r17b","r10a", "r10b", "r10c", "r11"],
             "validations": [
                 {
-                    "test":"let a = getValue('r17b#'+getRowIndex(0))\n a < 1 || a > 4",
+                    "test":"let a = getValue('r17b#'+getRowIndex(0))\n if(a > 0) { a < 1 || a > 4}",
                     "message":"Isian hanya boleh 1 s.d. 5",
                     "type":2
                 },
@@ -342,7 +342,7 @@
             "componentValidation":["r26a", "kbji"],
             "validations": [
                 {
-                    "test":"let a = getValue('r26a#'+getRowIndex(0))\n a != '' && (a < 1 || a > 5)",
+                    "test":"let a = getValue('r26a#'+getRowIndex(0))\n if(a > 0) { a < 1 || a > 5 }",
                     "message":"Isian hanya boleh 1 s.d. 5",
                     "type":2
                 },
@@ -358,7 +358,7 @@
             "componentValidation":["r38a", "umur", "konfirmasir38"],
             "validations": [
                 {
-                    "test":"let a = getValue('r38a#'+getRowIndex(0))\n a < 1 || a > 2",
+                    "test":"let a = getValue('r38a#'+getRowIndex(0))\n if(a > 0) { a < 1 || a > 2 }",
                     "message":"Isian hanya boleh 1 atau 2",
                     "type":2
                 },
@@ -374,7 +374,7 @@
             "componentValidation":["r38b", "umur", "konfirmasir38"],
             "validations": [
                 {
-                    "test":"let a = getValue('r38b#'+getRowIndex(0))\n a < 1 || a > 2",
+                    "test":"let a = getValue('r38b#'+getRowIndex(0))\n if(a > 0) { a < 1 || a > 2} ",
                     "message":"Isian hanya boleh 1 atau 2",
                     "type":2
                 },
@@ -406,7 +406,7 @@
             "componentValidation":["r42a", "konfirmasir42"],
             "validations": [
                 {
-                    "test":"let a = getValue('r42a#'+getRowIndex(0))\n a < 1 || a > 8",
+                    "test":"let a = getValue('r42a#'+getRowIndex(0))\n if(a > 0) { a < 1 || a > 8}",
                     "message":"Isian hanya boleh 1 s.d. 8",
                     "type":2
                 },
@@ -433,7 +433,7 @@
             "componentValidation":["r45a", "r10a", "r10b", "r10c", "r11", "r6a"],
             "validations": [
                 {
-                    "test":"let a = getValue('r45a#'+getRowIndex(0))\n a < 1 || a > 3",
+                    "test":"let a = getValue('r45a#'+getRowIndex(0))\n if(a > 0) { a < 1 || a > 3}",
                     "message":"Isian hanya boleh 1 s.d. 3",
                     "type":2
                 },
@@ -449,7 +449,7 @@
             "componentValidation":["r50d@$ROW$"],
             "validations": [
                 {
-                    "test":"let a = getValue('r50d#'+getRowIndex(0))\n a < 1 || a > 4",
+                    "test":"let a = getValue('r50d#'+getRowIndex(0))\n if(a > 0) { a < 1 || a > 4}",
                     "message":"Isian hanya boleh 1 s.d. 4",
                     "type":2
                 }

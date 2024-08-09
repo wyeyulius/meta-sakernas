@@ -63,48 +63,17 @@ class FormController extends Controller
                     ->where('region_id','=', $region_id)
                     ->get()->toArray();
         $res = json_decode(json_encode($res), true);
-        $nurt = [
-            [
-                'label' => "1",
-                'value' => "1"
-            ],
-            [
-                'label' => "2",
-                'value' => "2"
-            ],
-            [
-                'label' => "3",
-                'value' => "3"
-            ],
-            [
-                'label' => "4",
-                'value' => "4"
-            ],
-            [
-                'label' => "5",
-                'value' => "5"
-            ],
-            [
-                'label' => "6",
-                'value' => "6"
-            ],
-            [
-                'label' => "7",
-                'value' => "7"
-            ],
-            [
-                'label' => "8",
-                'value' => "8"
-            ],
-            [
-                'label' => "9",
-                'value' => "9"
-            ],
-            [
-                'label' => "10",
-                'value' => "10"
-            ]
-         ];
+
+        $region = Region::findOrFail($region_id);
+        $jml_sampel = $region->jml_sampel;
+
+        $nurt = [];
+        for ($i = 1; $i <= $jml_sampel; $i++) {
+            $nurt[] = [
+                'label' => (string)$i,
+                'value' => (string)$i
+            ];
+        }
         //  $nurt_done = array_diff($nurt, $res);
          foreach($nurt as $key => $n){
             foreach($res as $r){
@@ -373,48 +342,17 @@ class FormController extends Controller
                     ->where('nurt', '!=', $id)
                     ->get()->toArray();
         $res = json_decode(json_encode($res), true);
-        $nurt = [
-            [
-                'label' => "1",
-                'value' => "1"
-            ],
-            [
-                'label' => "2",
-                'value' => "2"
-            ],
-            [
-                'label' => "3",
-                'value' => "3"
-            ],
-            [
-                'label' => "4",
-                'value' => "4"
-            ],
-            [
-                'label' => "5",
-                'value' => "5"
-            ],
-            [
-                'label' => "6",
-                'value' => "6"
-            ],
-            [
-                'label' => "7",
-                'value' => "7"
-            ],
-            [
-                'label' => "8",
-                'value' => "8"
-            ],
-            [
-                'label' => "9",
-                'value' => "9"
-            ],
-            [
-                'label' => "10",
-                'value' => "10"
-            ]
-         ];
+        
+        $region = Region::findOrFail($region_id);
+        $jml_sampel = $region->jml_sampel;
+
+        $nurt = [];
+        for ($i = 1; $i <= $jml_sampel; $i++) {
+            $nurt[] = [
+                'label' => (string)$i,
+                'value' => (string)$i
+            ];
+        }
         //  $nurt_done = array_diff($nurt, $res);
          foreach($nurt as $key => $n){
             foreach($res as $r){
@@ -447,8 +385,10 @@ class FormController extends Controller
         }
 
         $field = array('id', 'region_id','nama_krt', 'pcl', 'pml', 'nurt', 'no_art', 'hasil_kunjungan');
-        $response = [
-            [
+        $response = [];
+
+        if ($data[0]->nurt !== null) {
+            $response[] = [
                 "dataKey" => "nurt",
                 "answer" => [
                     [
@@ -456,12 +396,18 @@ class FormController extends Controller
                         "value" => $data[0]->nurt
                     ]
                 ]
-            ],
-            [
+            ];
+        }
+
+        if ($data[0]->nama_krt !== null) {
+            $response[] = [
                 "dataKey" => "nama_krt",
                 "answer" => $data[0]->nama_krt
-            ],
-            [
+            ];
+        }
+
+        if ($data[0]->hasil_kunjungan !== null) {
+            $response[] = [
                 "dataKey" => "hasil_kunjungan",
                 "answer" => [
                     [
@@ -469,8 +415,11 @@ class FormController extends Controller
                         "value" => $data[0]->hasil_kunjungan
                     ]
                 ]
-            ],
-            [
+            ];
+        }
+
+        if ($data[0]->pcl !== null) {
+            $response[] = [
                 "dataKey" => "pcl",
                 "answer" => [
                     [
@@ -478,20 +427,25 @@ class FormController extends Controller
                         "value" => $data[0]->pcl
                     ]
                 ]
-            ],
-            [
+            ];
+        }
+
+        if ($jml_art !== null) {
+            $response[] = [
                 "dataKey" => "jml_art",
                 "answer" => $jml_art
-            ],
-        ];
+            ];
+        }
 
         foreach ($data as $k => $datum) {
             foreach ($datum as $key => $value) {
                     if (!in_array($key, $field) ) {
-                        $r = [];
-                        $r["dataKey"] = $key.'#'.$k+1;
-                        $r["answer"] = $value;
-                        $response [] = $r;
+                        if($value != null) {
+                            $r = [];
+                            $r["dataKey"] = $key.'#'.$k+1;
+                            $r["answer"] = $value;
+                            $response [] = $r;
+                        }
                     }
             }
         };

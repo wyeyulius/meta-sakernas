@@ -473,8 +473,8 @@
                     "disableInput" : false,
                     "disableInitial" : false,
                     "isEditableList" : true,
-                    "enableCondition": "Number(getValue('r10a@$ROW$')) == 1 || Number(getValue('r10b@$ROW$')) == 1 || Number(getValue('r10c@$ROW$')) == 1 || Number(getValue('r11@$ROW$')) == 1",
-                    "componentEnable": ["r10a@$ROW$", "r10b@$ROW$", "r10c@$ROW$", "r11@$ROW$"]
+                    "enableCondition": "let a = Number(getValue('r14a@$ROW$')) \n let arr = [1,2,3,7] \n arr.includes(a)",
+                    "componentEnable": ["r10a@$ROW$", "r10b@$ROW$", "r10c@$ROW$", "r11@$ROW$", "r14a@$ROW$"]
                   },
                   {
                     "label": "r17b. Apakah barang/produk yang dihasilkan dari pekerjaan utama digunakan untuk:",
